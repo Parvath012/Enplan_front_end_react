@@ -1,0 +1,1003 @@
+// Global rule to ALWAYS preserve restricted service icon color - highest priority
+// This ensures the icon color never changes under any circumstances
+.controller-service-browser,
+.controller-service-browser *,
+.ag-theme-alpine,
+.ag-theme-alpine * {
+  .restricted-service-icon,
+  .restricted-service-icon *,
+  .restricted-service-icon svg,
+  .restricted-service-icon svg *,
+  .restricted-service-icon path,
+  .restricted-service-icon g,
+  .restricted-service-icon g *,
+  [class*="restricted-service-icon"],
+  [class*="restricted-service-icon"] *,
+  [class*="restricted-service-icon"] svg,
+  [class*="restricted-service-icon"] svg *,
+  [class*="restricted-service-icon"] path {
+    color: #e06666 !important;
+    fill: #e06666 !important;
+    stroke: #e06666 !important;
+  }
+}
+
+// Scope: Disable individual cell hover for AddControllerServiceBrowser grid
+// Hide Panel's default header and footer since we use custom ones
+.controller-service-browser-panel {
+  .panel__header {
+    display: none !important;
+  }
+  
+  .panel__actions {
+    display: none !important;
+  }
+  
+  .panel__content {
+    padding: 0 !important;
+    height: 100% !important;
+    overflow: hidden !important;
+  }
+}
+
+.controller-service-browser {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    background-color: #fafafa;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    
+    // Override global App.scss cell hover styles - disable individual cell hover
+    .ag-theme-alpine .ag-cell:hover {
+      background-color: transparent !important;
+    }
+  
+    &__drawer {
+      width: 480px !important;
+      height: 100vh !important;
+      max-width: 480px !important;
+      max-height: 100vh !important;
+      position: relative !important;
+      overflow: hidden !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      filter: none !important;
+      isolation: isolate;
+      transform: translateZ(0);
+      z-index: 1301 !important;
+      // Smooth slide animation from right to left
+      transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms !important;
+      will-change: transform;
+    }
+  
+    &__container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: inherit;
+      background-color: #fafafa;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+  
+    // FIXED: Header with exactly 40px height and proper vertical centering
+    &__header {
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      width: 480px;
+      height: 40px; // Fixed 40px height
+      background: inherit;
+      background-color: #ffffff;
+      box-sizing: border-box;
+      border-width: 1px;
+      border-style: solid;
+      border-color: rgba(242, 242, 240, 1);
+      border-top: 0px;
+      border-left: 0px;
+      border-right: 0px;
+      border-radius: 0px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center; // Vertical centering
+      padding: 0 16px;
+      z-index: 10;
+    }
+  
+    &__title {
+      font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-weight: 650;
+      font-style: normal;
+      font-size: 40px;
+      color: #4A4E52;
+      text-align: left;
+      line-height: 1.2;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+  
+    &__close-button {
+      width: 30px !important;
+      height: 30px !important;
+      border-radius: 8px !important;
+      color: #6c757d !important;
+      background-color: transparent !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      cursor: pointer !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      
+      // Disable ripple effect
+      &::before,
+      &::after {
+        display: none !important;
+      }
+      
+      &:hover {
+        color: #495057 !important;
+        background-color: #f0f0f0 !important;
+      }
+      
+      &:active,
+      &:focus {
+        transform: none !important;
+        transition: none !important;
+      }
+      
+      .MuiIconButton-root {
+        width: 30px !important;
+        height: 30px !important;
+        padding: 0 !important;
+        
+        // Disable MUI ripple effect
+        &::before,
+        &::after {
+          display: none !important;
+        }
+        
+        // Disable MUI ripple classes
+        .MuiTouchRipple-root {
+          display: none !important;
+        }
+      }
+    }
+  
+    // Search Section
+    &__search-section {
+      position: absolute;
+      left: 0px;
+      top: 40px; // Below header (40px)
+      width: 480px;
+      height: 42px;
+      background-color: #ffffff;
+      box-sizing: border-box;
+      border-width: 0px;
+      border-bottom: 1px solid rgba(242, 242, 240, 1);
+      z-index: 9;
+    }
+  
+    &__top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 16px;
+      height: 100%;
+      box-sizing: border-box;
+      width: 100%;
+      
+      // Position ListToolbar to the right
+      > :last-child {
+        margin-left: auto;
+      }
+    }
+  
+    &__count {
+      font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-weight: 400;
+      font-size: 12px;
+      color: #5B6061;
+      line-height: 18px;
+      margin: 0;
+    }
+  
+    &__search-container {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: relative;
+    }
+  
+    &__search-field {
+      width: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: width 0.3s ease, opacity 0.3s ease;
+      display: flex;
+      align-items: center;
+      
+      &--visible {
+        width: 150px;
+        opacity: 1;
+      }
+    }
+  
+    &__search-separator {
+      width: 1px;
+      height: 16px;
+      background-color: #e0e0e0;
+      margin: 0 4px;
+    }
+  
+    &__search-toggle {
+      width: 24px;
+      height: 24px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      color: #6c757d;
+      transition: color 0.2s ease;
+      flex-shrink: 0;
+      
+      &:hover {
+        color: #495057;
+      }
+      
+      &--active {
+        color: rgba(0, 111, 230, 1);
+      }
+      
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+
+    }
+  
+    // Grid Container
+    &__grid-container {
+      position: absolute;
+      left: 0px;
+      top: 82px; // Below header (40px) + search section (42px)
+      width: 480px;
+      height: 400px;
+      background-color: #ffffff;
+      box-sizing: border-box;
+      overflow: hidden;
+      z-index: 8;
+    }
+  
+    &__grid-wrapper {
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+  
+    // Selected row highlighting - sky blue background
+    // Use highest specificity to prevent blinking/conflicts with hover
+    // Multiple selectors for maximum specificity
+    .controller-service-row-selected,
+    .ag-row.controller-service-row-selected,
+    .ag-row[aria-selected="true"],
+    .ag-row.controller-service-row-selected[aria-selected="true"],
+    .ag-row.controller-service-row-selected.ag-row-hover,
+    .ag-row[aria-selected="true"].ag-row-hover,
+    .ag-row.controller-service-row-selected:hover,
+    .ag-row[aria-selected="true"]:hover {
+      background-color: #87CEFA !important;
+      width: 100% !important;
+      
+      // Override ALL hover effects - selected rows should ALWAYS show sky blue
+      &:hover,
+      &.ag-row-hover,
+      &:hover.ag-row-hover {
+        background-color: #87CEFA !important;
+      }
+      
+      // Apply to all cells - highest priority
+      .ag-cell,
+      .ag-cell-custom,
+      [role="gridcell"],
+      .ag-cell-wrapper,
+      .ag-cell:hover,
+      .ag-cell-custom:hover,
+      [role="gridcell"]:hover,
+      &.ag-row-hover .ag-cell,
+      &.ag-row-hover .ag-cell-custom,
+      &.ag-row-hover [role="gridcell"],
+      &:hover .ag-cell,
+      &:hover .ag-cell-custom,
+      &:hover [role="gridcell"] {
+        background-color: #87CEFA !important;
+        color: #000000 !important;
+      }
+      
+      // Ensure all nested elements also get the background color
+      .ag-cell > *,
+      .ag-cell > div,
+      .ag-cell-wrapper > *,
+      .ag-cell > * > *,
+      .ag-cell:hover > *,
+      .ag-cell:hover > div {
+        background-color: #87CEFA !important;
+        color: #000000 !important;
+      }
+      
+      // Override for text elements to ensure they're visible
+      .type-column-text,
+      .ag-cell-value,
+      span {
+        background-color: transparent !important;
+        color: #000000 !important;
+      }
+      
+      // Preserve icon color for restricted service icon - highest priority
+      // Apply to icon itself and all nested SVG elements
+      .restricted-service-icon,
+      .restricted-service-icon *,
+      .restricted-service-icon svg,
+      .restricted-service-icon svg *,
+      .restricted-service-icon path,
+      .restricted-service-icon g,
+      .restricted-service-icon g * {
+        color: #e06666 !important;
+        fill: #e06666 !important;
+        stroke: #e06666 !important;
+      }
+      
+      // Ensure icon color is preserved even when cell is hovered
+      .ag-cell:hover .restricted-service-icon,
+      .ag-cell:hover .restricted-service-icon *,
+      .ag-cell:hover .restricted-service-icon svg,
+      .ag-cell:hover .restricted-service-icon svg *,
+      .ag-cell:hover .restricted-service-icon path {
+        color: #e06666 !important;
+        fill: #e06666 !important;
+        stroke: #e06666 !important;
+      }
+      
+      // Prevent any hover effects from overriding selection - maximum specificity
+      &.ag-row-hover .ag-cell,
+      &.ag-row-hover .ag-cell-custom,
+      &.ag-row-hover [role="gridcell"],
+      &.ag-row-hover .ag-cell:hover,
+      &.ag-row-hover .ag-cell-custom:hover,
+      &.ag-row-hover [role="gridcell"]:hover {
+        background-color: #87CEFA !important;
+        color: #000000 !important;
+      }
+    }
+    
+    // Allow AG Grid default hover for Type column - enable hover on rows
+    // Use AG Grid's default hover color (same as cell hover)
+    .ag-row-hover:not(.controller-service-row-selected):not([aria-selected="true"]) {
+      // Use AG Grid's CSS variable for hover color (same as cell hover)
+      background-color: var(--ag-row-hover-color, #f5f5f5) !important;
+      
+      .ag-cell,
+      .ag-cell-custom,
+      [role="gridcell"],
+      .ag-cell-wrapper,
+      .ag-cell-wrapper > *,
+      .ag-cell > *,
+      .ag-cell > div {
+        background-color: var(--ag-row-hover-color, #f5f5f5) !important;
+      }
+      
+      // Preserve icon color during hover
+      .restricted-service-icon,
+      .restricted-service-icon *,
+      .restricted-service-icon svg,
+      .restricted-service-icon svg *,
+      .restricted-service-icon path,
+      .restricted-service-icon g,
+      .restricted-service-icon g * {
+        color: #e06666 !important;
+        fill: #e06666 !important;
+        stroke: #e06666 !important;
+      }
+    }
+    
+    // Ensure Type column cell doesn't block row hover
+    .ag-cell[col-id="type"] {
+      background-color: transparent !important;
+      
+      > div {
+        background-color: transparent !important;
+      }
+    }
+    
+    // When row is hovered, ensure Type column cell also shows hover
+    .ag-row-hover:not(.controller-service-row-selected):not([aria-selected="true"]) .ag-cell[col-id="type"] {
+      background-color: var(--ag-row-hover-color, #f5f5f5) !important;
+      
+      > div {
+        background-color: var(--ag-row-hover-color, #f5f5f5) !important;
+      }
+    }
+  
+    // Type Column Text - Ensure proper truncation with ellipsis
+    // Use high specificity to override any conflicting styles
+    .ag-cell[col-id="type"] .type-column-text,
+    .ag-cell-custom[col-id="type"] .type-column-text,
+    .type-column-text {
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      white-space: nowrap !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+      display: block !important;
+      box-sizing: border-box !important;
+      position: relative !important;
+      // Ensure ellipsis appears when text overflows
+      word-break: normal !important;
+      word-wrap: normal !important;
+      // Override any conflicting display properties
+      flex: none !important;
+      // Ensure inline children (highlighted spans) don't break truncation
+      line-height: 1.4 !important;
+      
+      // Make sure all child elements are inline
+      > span,
+      > * {
+        display: inline !important;
+        white-space: nowrap !important;
+      }
+    }
+    
+    // Ensure Type column cell allows truncation
+    // Use high specificity to override AG Grid defaults
+    .ag-cell[col-id="type"],
+    .ag-cell-custom[col-id="type"],
+    [col-id="type"].ag-cell,
+    [col-id="type"].ag-cell-custom {
+      overflow: hidden !important;
+      
+      // Ensure the cell wrapper doesn't prevent truncation
+      > div {
+        overflow: hidden !important;
+        width: 100% !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 0 !important;
+        min-width: 0 !important;
+      }
+      
+      // Text wrapper should take available space and allow truncation
+      > div > div:first-child,
+      > div > div[key="text-wrapper"] {
+        flex: 1 1 0% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+        display: flex !important;
+        align-items: center !important;
+      }
+      
+      // Icon wrapper should never shrink - always fully visible
+      > div > div:last-child,
+      > div > div[key="icon-wrapper"] {
+        flex-shrink: 0 !important;
+        flex-grow: 0 !important;
+        flex-basis: 16px !important;
+        min-width: 16px !important;
+        width: 16px !important;
+        overflow: visible !important;
+      }
+      
+      // Ensure type-column-text truncates properly
+      .type-column-text {
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        display: block !important;
+        
+        // Override any child elements that might prevent truncation
+        > *,
+        > span {
+          overflow: visible !important; // Spans should be visible but parent truncates
+          text-overflow: clip !important;
+          white-space: nowrap !important;
+          display: inline !important;
+        }
+        
+        // Force truncation on the container
+        &::after {
+          content: '';
+          display: none;
+        }
+      }
+    }
+  
+    // Details Panel
+    &__details {
+      position: absolute;
+      left: 0px;
+      width: 480px;
+      background-color: #ffffff;
+      box-sizing: border-box;
+      overflow-y: auto;
+      overflow-x: hidden;
+      border-top: 1px solid rgba(242, 242, 240, 1);
+      z-index: 7;
+    }
+  
+    &__details-content {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+  
+    &__details-title {
+      font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-weight: 650;
+      font-size: 12px;
+      color: #4A4E52;
+      line-height: 18px;
+      margin: 0;
+    }
+  
+    &__details-desc {
+      // Match table data cell styles exactly
+      font-family: 'InterTight-Regular', 'Inter Tight', sans-serif !important;
+      font-weight: 400 !important;
+      font-size: 10px !important;
+      color: #5B6061 !important;
+      line-height: 18px;
+      margin: 0;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+  
+    // Footer
+    &__footer {
+      position: absolute;
+      left: 0px;
+      bottom: 0px;
+      width: 480px;
+      height: 46px;
+      background: inherit;
+      background-color: #ffffff;
+      box-sizing: border-box;
+      border-width: 1px;
+      border-style: solid;
+      border-color: rgba(242, 242, 240, 1);
+      border-top: 1px solid rgba(242, 242, 240, 1);
+      border-left: none;
+      border-right: none;
+      border-bottom: none;
+      border-radius: 0px;
+      -moz-box-shadow: none;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 16px;
+      z-index: 10;
+    }
+  
+    // Cancel button - Match Reset button styles from create process group with improved width
+    &__cancel-button {
+      // Match Reset button from create process group (layout.tsx) with improved width for "Cancel" text
+      font-family: 'ArialMT', 'Arial', sans-serif;
+      font-weight: 400;
+      width: 55px; // Increased from 40px to better accommodate "Cancel" text and improve highlighting
+      min-width: 55px; // Ensure minimum width
+      height: 24px;
+      font-style: normal;
+      font-size: 13px;
+      letter-spacing: normal;
+      color: #1976d2;
+      vertical-align: none;
+      text-align: center;
+      line-height: normal;
+      text-transform: none;
+      padding: 0 4px; // Add horizontal padding for better highlighting area
+      border-radius: 6px;
+      margin-left: 8px;
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s, color 0.2s;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      box-sizing: border-box; // Ensure padding is included in width
+      
+      // Disable ripple effect
+      &::before,
+      &::after {
+        display: none !important;
+      }
+      
+      &:hover {
+        background-color: rgba(120, 172, 244, 1);
+        color: #fff;
+        // Ensure full width highlighting
+        width: 55px;
+        min-width: 55px;
+      }
+      
+      &:active,
+      &:focus {
+        outline: none;
+        background-color: rgba(120, 172, 244, 0.7);
+        color: #fff;
+        transition: none;
+        // Ensure full width highlighting
+        width: 55px;
+        min-width: 55px;
+      }
+      
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        background-color: transparent;
+        color: #1976d2;
+      }
+    }
+  
+    &__add-button {
+      // Match ListToolbar add button styles exactly
+      width: 56px;
+      height: 22px;
+      background: rgba(0, 111, 230, 1);
+      border: none;
+      border-radius: 4px;
+      color: #D0F0FF;
+      font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-weight: 500;
+      font-style: normal;
+      font-size: 12px;
+      text-align: center;
+      line-height: 20px;
+      text-transform: none;
+      min-width: 56px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: none;
+      
+      &:hover:not(:disabled) {
+        background-color: rgba(0, 111, 230, 1);
+      }
+      
+      &:active:not(:disabled),
+      &:focus:not(:disabled) {
+        background-color: rgba(0, 111, 230, 1);
+        outline: none;
+      }
+      
+      &:disabled {
+        background-color: rgba(0, 111, 230, 0.6);
+        color: #D0F0FF;
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+    }
+  }
+  
+  // Override MUI Drawer styles
+  .MuiDrawer-paper.controller-service-browser__drawer {
+    width: 480px !important;
+    max-width: 480px !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    position: relative !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    filter: none !important;
+    isolation: isolate !important;
+    transform: translateZ(0) !important;
+    z-index: 1301 !important;
+    background: inherit;
+    background-color: #fafafa;
+    box-sizing: border-box;
+    border-width: 1px;
+    border-style: solid;
+    border-color: rgba(242, 242, 240, 1);
+    border-top: 0px;
+    border-radius: 0px;
+    -moz-box-shadow: -5px 0px 14px rgba(204, 204, 204, 0.349019607843137);
+    -webkit-box-shadow: -5px 0px 14px rgba(204, 204, 204, 0.349019607843137);
+    box-shadow: -5px 0px 14px rgba(204, 204, 204, 0.349019607843137);
+  }
+  
+  // Ensure drawer paper doesn't get blurred
+  .MuiDrawer-paper.controller-service-browser__drawer,
+  .MuiDrawer-paper.controller-service-browser__drawer * {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    filter: none !important;
+  }
+  
+  // AG Grid customizations
+  .ag-theme-alpine {
+    .ag-header-cell-custom {
+      .ag-header-cell-text {
+        font-size: 10px !important;
+        font-weight: 650 !important;
+        color: #818586 !important;
+        font-family: 'Inter18pt-SemiBold', 'Inter 18pt SemiBold', 'Inter 18pt', sans-serif !important;
+      }
+    }
+  
+    .ag-cell-custom {
+      font-size: 10px !important;
+      font-weight: 400 !important;
+      color: #5B6061 !important;
+      font-family: 'InterTight-Regular', 'Inter Tight', sans-serif !important;
+      display: flex;
+      align-items: center;
+      vertical-align: middle;
+    }
+    
+    // Override ag-cell-custom for Type column to allow truncation
+    .ag-cell[col-id="type"].ag-cell-custom {
+      display: flex !important;
+      align-items: center !important;
+      overflow: hidden !important;
+      
+      // Ensure inner content allows truncation
+      > * {
+        min-width: 0 !important;
+      }
+    }
+  
+    // Enable AG Grid native hover - use AG Grid's default hover color
+    // AG Grid's ag-theme-alpine default is #f5f5f5, but we'll use the CSS variable
+    --ag-row-hover-color: #f5f5f5 !important;
+    
+    // COMPLETELY DISABLE all default AG Grid hover behaviors
+    // Only Type column should trigger row hover via JavaScript
+    .ag-row:hover,
+    .ag-row:hover:not(.ag-row-hover) {
+      background-color: #ffffff !important;
+      
+      .ag-cell,
+      .ag-cell-custom,
+      [role="gridcell"],
+      .ag-cell-wrapper {
+        background-color: #ffffff !important;
+      }
+    }
+    
+    // Disable row hover when hovering Version or Tags columns - absolutely no hover
+    // Prevent row hover even if AG Grid tries to add it
+    .ag-row:hover .ag-cell[col-id="version"],
+    .ag-row:hover .ag-cell[col-id="tags"],
+    .ag-row:hover .ag-cell[col-id="version"] *,
+    .ag-row:hover .ag-cell[col-id="tags"] * {
+      background-color: #ffffff !important;
+    }
+    
+    // Prevent row highlighting ONLY when hovering Version or Tags columns directly
+    // (not when row is hovered via Type column)
+    // This rule only applies when the row does NOT have ag-row-hover class
+    .ag-row:not(.ag-row-hover):has(.ag-cell[col-id="version"]:hover):not(:has(.ag-cell[col-id="type"]:hover)),
+    .ag-row:not(.ag-row-hover):has(.ag-cell[col-id="tags"]:hover):not(:has(.ag-cell[col-id="type"]:hover)) {
+      background-color: #ffffff !important;
+      
+      .ag-cell {
+        background-color: #ffffff !important;
+      }
+    }
+    
+    // Disable individual cell hover completely - no highlighting for any cell
+    // Use higher specificity to override App.scss global styles
+    .ag-cell:hover,
+    .ag-cell-custom:hover,
+    [role="gridcell"]:hover,
+    .ag-cell-wrapper:hover,
+    .ag-row .ag-cell:hover,
+    .ag-row .ag-cell-custom:hover {
+      background-color: transparent !important;
+    }
+    
+    // Disable cell hover for Version and Tags columns - no hover effects at all
+    // BUT allow hover background when row is hovered via Type column
+    .ag-row:not(.ag-row-hover) .ag-cell[col-id="version"]:hover,
+    .ag-row:not(.ag-row-hover) .ag-cell[col-id="tags"]:hover,
+    .ag-row:not(.ag-row-hover) .ag-cell[col-id="version"]:hover *,
+    .ag-row:not(.ag-row-hover) .ag-cell[col-id="tags"]:hover * {
+      background-color: transparent !important;
+    }
+    
+    // Type column: disable individual cell hover (row hover is handled by JS)
+    .ag-cell[col-id="type"]:hover,
+    .ag-row .ag-cell[col-id="type"]:hover {
+      background-color: transparent !important;
+    }
+    
+    // Ensure no cell hover when row is not hovered (via Type column)
+    .ag-row:not(.ag-row-hover) .ag-cell:hover,
+    .ag-row:not(.ag-row-hover) .ag-cell-custom:hover,
+    .ag-row:not(.ag-row-hover) .ag-cell[col-id="version"]:hover,
+    .ag-row:not(.ag-row-hover) .ag-cell[col-id="tags"]:hover {
+      background-color: transparent !important;
+    }
+    
+    // Only allow row hover when explicitly added by Type column JS (ag-row-hover class)
+    // This is the ONLY way rows should highlight - triggered by Type column hover
+    .ag-row-hover:not(.controller-service-row-selected):not([aria-selected="true"]) {
+      // Use AG Grid's CSS variable for hover color (same as cell hover)
+      background-color: var(--ag-row-hover-color, #f5f5f5) !important;
+
+      .ag-cell,
+      .ag-cell-custom,
+      [role="gridcell"],
+      .ag-cell-wrapper,
+      .ag-cell-wrapper > *,
+      .ag-cell > *,
+      .ag-cell > div {
+        background-color: var(--ag-row-hover-color, #f5f5f5) !important;
+      }
+      
+      // Explicitly ensure Version and Tags columns get hover background
+      .ag-cell[col-id="version"],
+      .ag-cell[col-id="tags"],
+      .ag-cell[col-id="version"] *,
+      .ag-cell[col-id="tags"] *,
+      .ag-cell[col-id="version"] > *,
+      .ag-cell[col-id="tags"] > *,
+      .ag-cell[col-id="version"] > div,
+      .ag-cell[col-id="tags"] > div {
+        background-color: var(--ag-row-hover-color, #f5f5f5) !important;
+      }
+    }
+    
+    // Ensure selected rows maintain their color even on hover - highest priority
+    // This is a duplicate rule with higher specificity to ensure it always wins
+    .ag-row.controller-service-row-selected,
+    .ag-row[aria-selected="true"],
+    .ag-row.controller-service-row-selected:hover,
+    .ag-row[aria-selected="true"]:hover,
+    .ag-row.controller-service-row-selected.ag-row-hover,
+    .ag-row[aria-selected="true"].ag-row-hover,
+    .ag-row.controller-service-row-selected.ag-row-hover:hover,
+    .ag-row[aria-selected="true"].ag-row-hover:hover {
+      background-color: #87CEFA !important;
+      width: 100% !important;
+      
+      .ag-cell,
+      .ag-cell-custom,
+      [role="gridcell"],
+      .ag-cell-wrapper,
+      .ag-cell:hover,
+      .ag-cell-custom:hover,
+      [role="gridcell"]:hover,
+      &:hover .ag-cell,
+      &:hover .ag-cell-custom,
+      &:hover [role="gridcell"],
+      &.ag-row-hover .ag-cell,
+      &.ag-row-hover .ag-cell-custom,
+      &.ag-row-hover [role="gridcell"] {
+        background-color: #87CEFA !important;
+        color: #000000 !important;
+      }
+      
+      // Ensure nested elements maintain color
+      .ag-cell > *,
+      .ag-cell > div,
+      .ag-cell-wrapper > *,
+      .ag-cell:hover > *,
+      .ag-cell:hover > div {
+        background-color: #87CEFA !important;
+        color: #000000 !important;
+      }
+      
+      // Text elements should be transparent but visible
+      .type-column-text,
+      .ag-cell-value,
+      span {
+        background-color: transparent !important;
+        color: #000000 !important;
+      }
+      
+      // Preserve icon color for restricted service icon - highest priority
+      // Apply to icon itself and all nested SVG elements
+      .restricted-service-icon,
+      .restricted-service-icon *,
+      .restricted-service-icon svg,
+      .restricted-service-icon svg *,
+      .restricted-service-icon path,
+      .restricted-service-icon g,
+      .restricted-service-icon g * {
+        color: #e06666 !important;
+        fill: #e06666 !important;
+        stroke: #e06666 !important;
+      }
+      
+      // Ensure icon color is preserved even when cell is hovered
+      .ag-cell:hover .restricted-service-icon,
+      .ag-cell:hover .restricted-service-icon *,
+      .ag-cell:hover .restricted-service-icon svg,
+      .ag-cell:hover .restricted-service-icon svg *,
+      .ag-cell:hover .restricted-service-icon path {
+        color: #e06666 !important;
+        fill: #e06666 !important;
+        stroke: #e06666 !important;
+      }
+    }
+  
+    // Ensure full width for rows
+    .ag-row {
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+  
+    // Ensure cells don't have extra padding/margin
+    .ag-cell {
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+  
+    // Word wrap for tags column (description space)
+    .ag-cell[col-id="tags"] {
+      white-space: normal !important;
+      word-wrap: break-word !important;
+      word-break: break-word !important;
+      overflow: hidden !important;
+      background-color: transparent !important;
+    }
+    
+    // Version column - no hover effects
+    .ag-cell[col-id="version"] {
+      background-color: transparent !important;
+    }
+  
+    // Type column truncation
+    .ag-cell[col-id="type"] {
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      white-space: nowrap !important;
+      background-color: transparent !important;
+      
+      // Ensure hover works on entire row when hovering Type column
+      &:hover {
+        // Let the row hover handle the background (via JS adding ag-row-hover class)
+        background-color: transparent !important;
+      }
+    }
+    
+    // When row is hovered (via Type column), ensure Type column cell also shows hover
+    .ag-row-hover:not(.controller-service-row-selected):not([aria-selected="true"]) .ag-cell[col-id="type"] {
+      background-color: var(--ag-row-hover-color, #f5f5f5) !important;
+
+      > div {
+        background-color: var(--ag-row-hover-color, #f5f5f5) !important;
+      }
+    }
+  }
+  
+  // No visual highlighting for selected rows - selection is tracked but not visually displayed

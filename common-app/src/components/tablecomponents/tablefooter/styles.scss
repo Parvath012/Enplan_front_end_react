@@ -1,0 +1,161 @@
+.footer {
+  position: relative;
+  bottom: unset;
+  left: unset;
+  width: 100%;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 12px;
+  background-color: #f8f4f4;
+  font-size: 8px;
+  font-style: normal;
+  font-weight: 400;
+  height: 20px;
+  border-top: 1px solid #F0EFEF;
+
+  .footer-section {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    &.left {
+      flex: 1;
+      gap: 4px;
+    }
+
+    &.center {
+      flex: 1;
+      justify-content: center;
+      display: flex;
+    }
+
+    &.right {
+      margin-left: auto;
+      margin-right: 35px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-wrap: wrap;
+      min-width: 0;
+      max-width: 100vw;
+    }
+  }
+
+  .separator {
+    color: #B4B4B2;
+    margin: 0 1px;
+  }
+
+  .label-box {
+    display: flex;
+    align-items: center;
+    gap: 1px;
+
+    span {
+      font-size: 8px;
+    }
+  }
+
+  .color-box {
+    width: 18px;
+    height: 12px;
+  }
+
+  .center-button {
+    padding: 0px 12px;
+    background-color: #0051ab;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    height: 25px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .data-refresh {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    gap: 5px;
+    font-weight: 500;
+    white-space: nowrap;
+    margin-right: 8px;
+    margin-left: 8px;
+    background: none;
+    border: none;
+    padding: 0;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    font-style: inherit;
+    font-variant: inherit;
+    cursor: pointer;
+    outline: none;
+    box-shadow: none;
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .refresh-icon {
+      width: 10px;
+      height: 10px;
+    }
+  }
+
+  .zoom-controls {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+
+    .zoom-button {
+      color: #667085;
+      font-size: 12px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      min-width: 24px;
+      padding: 0 4px;
+      width: 12px;
+      height: 12px;
+
+      &:hover {
+        color: #333;
+      }
+    }
+  }
+
+  .zoom-slider {
+    width: 120px;
+    height: 4px;
+    color: #6C6B6B;
+    padding: 13px 0;
+
+    .MuiSlider-thumb {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  .zoom-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-width: 0;
+    flex-shrink: 1;
+  }
+
+  .zoom-percentage {
+    font-size: 10px;
+    min-width: 32px;
+    max-width: 48px;
+    text-align: right;
+    flex-shrink: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

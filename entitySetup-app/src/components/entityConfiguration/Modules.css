@@ -1,0 +1,55 @@
+/* Custom scroll styling for Modules page only */
+
+/* Modules scroll container - optimized scrollbar styling */
+.modules-scroll-container::-webkit-scrollbar {
+  width: 6px; /* Reduced width to be less intrusive */
+}
+
+.modules-scroll-container::-webkit-scrollbar-track {
+  background: #f8f8f8; /* Lighter grey track */
+  border-radius: 3px;
+}
+
+.modules-scroll-container::-webkit-scrollbar-thumb {
+  background: #c0c0c0; /* Lighter grey thumb */
+  border-radius: 3px;
+  border: none; /* Remove border to reduce visual weight */
+}
+
+.modules-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: #a0a0a0; /* Slightly darker on hover */
+}
+
+.modules-scroll-container::-webkit-scrollbar-thumb:active {
+  background: #808080; /* Darker when active */
+}
+
+/* Firefox scrollbar styling */
+.modules-scroll-container {
+  scrollbar-width: thin;
+  scrollbar-color: #c0c0c0 #f8f8f8;
+}
+
+/* Horizontal scrollbar styling - only shown when needed */
+.modules-horizontal-scroll {
+  /* Custom horizontal scrollbar styling - more subtle */
+  pointer-events: none; /* Prevent interaction with the visual scrollbar */
+}
+
+.modules-horizontal-scroll::-webkit-scrollbar {
+  height: 4px; /* Reduced height */
+}
+
+.modules-horizontal-scroll::-webkit-scrollbar-track {
+  background: #f8f8f8;
+  border-radius: 2px;
+}
+
+.modules-horizontal-scroll::-webkit-scrollbar-thumb {
+  background: #bdbdbd;
+  border-radius: 2px;
+}
+
+.modules-horizontal-scroll::-webkit-scrollbar-thumb:hover {
+  background: #9e9e9e;
+}

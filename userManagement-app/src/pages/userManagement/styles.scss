@@ -1,0 +1,157 @@
+/* Entity Setup App Styles */
+
+/* Custom styles for the Entity Form page to enable scrolling */
+.entity-form-wrapper {
+  overflow: auto;
+  height: 100%;
+  width: 100%;
+}
+
+/* AG Grid Custom Styles - Apply to Alpine theme */
+.ag-theme-alpine {
+  width: 100% !important;
+  max-width: 100% !important;
+  --ag-background-color: transparent;
+  --ag-header-background-color: rgba(240, 239, 239, 1);
+  --ag-odd-row-background-color: transparent;
+  --ag-row-border-color: rgba(247, 247, 246, 1);
+  /* Enable only one clean separator */
+  --ag-header-column-separator-display: block;
+  --ag-header-column-separator-color: rgb(180, 179, 178);
+  --ag-header-column-separator-height: 100%;
+  --ag-row-hover-color: transparent;
+  --ag-font-size: 10px;
+  --ag-font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --ag-cell-horizontal-padding: 10px;
+  --ag-header-height: 34px;
+  --ag-row-height: 30px;
+  --ag-border-radius: 0px;
+  --ag-borders: solid 1px;
+  --ag-border-color: rgba(247, 247, 246, 1);
+  overflow: visible !important;
+
+  /* Remove the extra resize handle that appears as a second separator */
+  .ag-header-cell-resize {
+    display: none !important;
+  }
+
+  .ag-header-cell {
+    font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 650;
+    border-right: none !important;
+    
+    &-label {
+      padding-left: 4px !important;
+    }
+  }
+
+  .ag-cell {
+    font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 400;
+    color: #5B6061;
+    display: flex;
+    align-items: center;
+    padding-left: 12px !important;
+    border-right: 1px solid rgba(247, 247, 246, 1);
+    cursor: default !important;
+    
+    &:hover {
+      background-color: transparent !important;
+    }
+  }
+
+  .ag-cell-custom-center {
+    justify-content: center;
+    padding-left: 0 !important;
+  }
+
+  /* Ensure grid headers are visible */
+  .ag-header {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 10 !important;
+    overflow: visible !important;
+    border-bottom: 1px solid rgba(180, 180, 178, 1);
+  }
+
+  .ag-header-row {
+    overflow: visible !important;
+  }
+
+  /* Make sure the header row cells are properly aligned */
+  .ag-header-row-column {
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  /* Fix the cell content alignment */
+  .ag-cell-value {
+    width: 100%;
+  }
+
+  /* Ensure proper scrolling behavior */
+  .ag-body-viewport {
+    overflow: auto !important;
+  }
+
+  /* Fix for AG Grid header visibility */
+  .ag-header-viewport {
+    overflow: visible !important;
+  }
+
+  .ag-row-disabled {
+    background-color: transparent;
+    opacity: 1;
+  }
+
+  /* Hide default sort icons */
+  .ag-header-cell-label .ag-header-icon {
+    &.ag-sort-ascending-icon,
+    &.ag-sort-descending-icon,
+    &.ag-sort-none-icon {
+      display: none !important;
+    }
+  }
+
+  /* Hide pagination panel completely */
+  .ag-paging-panel {
+    display: none !important;
+  }
+
+  /* Ensure consistent border styling for grid body */
+  .ag-root-wrapper {
+    border: 1px solid rgba(247, 247, 246, 1);
+  }
+
+  .ag-row {
+    font-size: 10px;
+    border-bottom: 1px solid rgba(247, 247, 246, 1);
+    cursor: default !important;
+    
+    &:hover {
+      background-color: transparent !important;
+    }
+  }
+
+  /* Remove all hover effects from grid */
+  .ag-row:hover,
+  .ag-row-hover,
+  .ag-cell:hover,
+  .ag-row:hover .ag-cell {
+    background-color: transparent !important;
+    cursor: default !important;
+  }
+
+  /* Ensure no pointer cursor anywhere */
+  .ag-row,
+  .ag-cell,
+  .ag-cell-value {
+    cursor: default !important;
+  }
+
+  /* Force consistent hover color for action column IconButtons */
+  .action-cell-no-border .MuiIconButton-root:hover:not(.Mui-disabled),
+  .action-cell-no-border .MuiIconButton-root:focus:not(.Mui-disabled) {
+    background-color: rgba(0, 0, 0, 0.04) !important;
+  }
+}

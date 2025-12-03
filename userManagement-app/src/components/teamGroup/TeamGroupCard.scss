@@ -1,0 +1,480 @@
+.team-group-card {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 100%;
+  max-width: 380px;
+  height: 165px !important; // Fixed height - further reduced
+  min-height: 165px !important;
+  max-height: 165px !important;
+  background: inherit;
+  background-color: rgba(255, 255, 255, 1) !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important; // Ensure content doesn't overflow
+  border: 1px solid rgba(242, 242, 240, 1) !important;
+  border-width: 1px !important;
+  border-style: solid !important;
+  border-color: rgba(242, 242, 240, 1) !important;
+  border-radius: 8px;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none !important;
+  outline: none !important;
+  cursor: default; // Default cursor for card, pointer only on buttons
+  transition: none !important;
+
+  // Inactive state - grayed out
+  &--inactive {
+    background-color: rgba(245, 245, 245, 1) !important;
+    overflow: hidden !important; // Ensure content doesn't overflow
+    
+    // Gray out all text content
+    * {
+      color: rgba(128, 128, 128, 0.9) !important;
+    }
+
+    // Update sections background
+    [class*="section"],
+    [class*="Section"] {
+      background-color: rgba(245, 245, 245, 0.8) !important;
+    }
+
+    // Ensure footer and avatars are properly contained
+    &__footer {
+      overflow: hidden !important;
+      max-width: 100% !important;
+    }
+
+    &__members {
+      overflow: hidden !important;
+      max-width: 100% !important;
+    }
+
+    // Ensure footer container doesn't break
+    [data-menu-container] {
+      overflow: hidden !important;
+      max-width: 100% !important;
+    }
+  }
+
+  // Prevent any border changes on hover - override all possible states
+  &:hover,
+  &:active,
+  &:focus,
+  &:focus-visible {
+    border: 1px solid rgba(242, 242, 240, 1) !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: rgba(242, 242, 240, 1) !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  // Override commonApp Card hover effects and transitions
+  &.common-card {
+    // Remove transition that might cause border color changes
+    transition: none !important;
+    
+    &:hover,
+    &:active,
+    &:focus,
+    &:focus-visible {
+      border: 1px solid rgba(242, 242, 240, 1) !important;
+      border-width: 1px !important;
+      border-style: solid !important;
+      border-color: rgba(242, 242, 240, 1) !important;
+      outline: none !important;
+      box-shadow: none !important;
+    }
+  }
+
+  // Override Card component's border-color transition
+  &,
+  & > * {
+    border-color: rgba(242, 242, 240, 1) !important;
+    transition: none !important;
+    cursor: default; // Default cursor for all card content
+  }
+  
+  // Override cursor for interactive elements only
+  &__toggle,
+  &__toggle *,
+  [data-menu-container] > div:last-child,
+  [data-menu-container] > div:last-child * {
+    cursor: pointer !important; // Pointer cursor for toggle and menu button
+  }
+
+  // Override Card header padding to allow custom header layout
+  & > div:first-child {
+    padding: 0 !important;
+    background-color: rgba(255, 255, 255, 1) !important;
+    border-color: rgba(242, 242, 240, 1) !important;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 6px 12px;
+    border-bottom: none !important;
+    background-color: rgba(255, 255, 255, 1) !important;
+    cursor: default; // Default cursor for header
+  }
+
+  &__title {
+    font-family: 'Inter Tight', sans-serif !important;
+    font-weight: 4500 !important;
+    font-size: 12px !important;
+    color: #666666 !important; 
+    margin: 0 !important;
+    flex: 1 !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    min-width: 0 !important;
+    line-height: 1.4 !important;
+    cursor: default; // Default cursor for title
+  }
+
+  &__toggle {
+    display: flex;
+    align-items: center;
+    cursor: pointer; // Hand pointer for toggle button
+  }
+
+  &__dates {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin-bottom: 0 !important;
+    flex-wrap: nowrap !important;
+    min-width: 0 !important; // Allow flex items to shrink
+    overflow: hidden !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    cursor: default; // Default cursor for dates
+  }
+
+  &__date {
+    font-family: 'Inter Tight', sans-serif !important;
+    font-size: 10px !important;
+    font-weight: 400 !important;
+    color: #666666 !important;
+    margin: 0 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 100% !important;
+    line-height: 1.4 !important;
+    display: inline-block !important;
+    flex-shrink: 1 !important;
+    min-width: 0 !important;
+    cursor: default; // Default cursor for date text
+  }
+
+  &__date-separator {
+    width: 1px !important;
+    height: 16px !important; // Match the height of the date text
+    border-left: 1px solid #d0d0d0 !important;
+    border-right: none !important;
+    border-top: none !important;
+    border-bottom: none !important;
+    margin: 0 8px !important; // Space before and after the separator
+    flex-shrink: 0 !important;
+    display: block !important;
+    background-color: transparent !important;
+  }
+
+  &__description {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important;
+    min-height: 2.8em !important; // Fixed height to match 2-line description text
+    height: 2.8em !important; // Fixed height so footer always starts at same position
+    box-sizing: border-box !important;
+    cursor: default; // Default cursor for description
+  }
+
+  &__description-label {
+    font-family: 'Inter Tight', sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    color: #666666 !important;
+    margin: 0 !important;
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+    cursor: default; // Default cursor for description label
+  }
+
+  &__description-text {
+    font-family: 'Inter Tight', sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    color: #666666 !important;
+    margin: 0 !important;
+    line-height: 1.4 !important;
+    flex: 1 !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    max-height: 2.8em !important; // Approximately 2 lines at line-height 1.4
+    cursor: default; // Default cursor for description text
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    overflow: hidden !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    flex-shrink: 0 !important; // Prevent footer from shrinking
+    max-height: 32px !important; // Limit footer height to avatar height
+    cursor: default; // Default cursor for footer (except menu button)
+  }
+
+  &__members {
+    display: flex;
+    align-items: center;
+    gap: 0; // No gap for overlapping
+    overflow: hidden !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    flex-shrink: 1 !important;
+    max-height: 32px !important; // Limit to avatar height
+    cursor: default; // Default cursor for members area
+  }
+
+  &__member-avatar {
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+    margin-left: 0; // Default no overlap
+    cursor: default; // Default cursor for avatars
+
+    // Only apply overlap to members (not owner)
+    &--overlap {
+      margin-left: -8px; // Overlap each avatar by 8px
+    }
+
+    // No hover effect on avatars
+
+    // Owner avatar doesn't need extra margin - separator handles spacing
+  }
+
+  &__member-separator {
+    width: 1px;
+    height: 32px; // Same height as avatar
+    border-left: 1px dashed #d0d0d0;
+    margin-left: 8px; // Space before the dotted line (after owner avatar)
+    margin-right: 16px; // Space after the dotted line (before first member avatar, accounting for -8px overlap)
+    flex-shrink: 0;
+    z-index: 0; // Behind avatars
+  }
+
+  &__more-members {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #E3F2FD;
+    color: #1976D2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'InterTight-Regular_Medium', 'Inter Tight Medium', 'Inter Tight', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    border: 2px solid white;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    margin-left: 0; // Default no overlap
+    position: relative;
+    z-index: 1;
+    cursor: default; // Default cursor for more members count
+
+    // Only apply overlap when it's part of the members group
+    &--overlap {
+      margin-left: -8px; // Overlap with previous avatar
+    }
+  }
+
+  &__menu-button {
+    padding: 4px;
+    color: #666666;
+    background-color: transparent !important;
+    cursor: pointer !important; // Hand pointer for menu button
+    
+    &:hover {
+      background-color: transparent !important;
+      outline: none !important;
+      cursor: pointer !important;
+    }
+    
+    &:focus {
+      outline: none !important;
+      cursor: pointer !important;
+    }
+  }
+
+  // Disable menu button when group is inactive
+  &--menu-disabled {
+    [data-menu-container] {
+      // Target only the menu button (last child div in the menu container)
+      > div:last-child {
+        cursor: not-allowed !important;
+        opacity: 0.5;
+        pointer-events: none !important;
+        
+        &:hover {
+          background-color: transparent !important;
+        }
+        
+        // Make menu icon appear disabled
+        svg {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+
+  // Menu button wrapper for tooltip - matches CustomTooltip styling
+  &__menu-button-wrapper {
+    position: relative;
+    
+    // Add tooltip using CSS that matches CustomTooltip styling exactly
+    &::after {
+      content: attr(data-tooltip-title);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      background-color: white;
+      color: #333;
+      font-size: 12px;
+      border: 1px solid #000;
+      border-radius: 4px;
+      padding: 6px 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      font-weight: 500;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+      z-index: 1000;
+      margin-bottom: 4px;
+      font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    
+    &:hover::after {
+      opacity: 1;
+      transition-delay: 1s; // Match CustomTooltip's enterDelay of 1000ms
+    }
+  }
+
+  // Ensure all sections have white background and no borders
+  &__dates,
+  &__description,
+  &__footer {
+    background-color: rgba(255, 255, 255, 1) !important;
+  }
+
+  // Remove any borders from card sections
+  & > * {
+    border: none !important;
+    border-bottom: none !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+  }
+
+  // Override any section borders that might come from Card component
+  [class*="section"],
+  [class*="Section"] {
+    border-bottom: none !important;
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    background-color: rgba(255, 255, 255, 1) !important;
+  }
+
+  // Fix description section height so footer always starts at same position
+  // Target the Card component's section Box that contains the description
+  // The description section is the second section (after dates), so it's the 3rd child (header, dates, description)
+  // Account for the section's padding: top 0px (from '6px 12px 0px 12px' but we want 0), bottom 0px
+  & > div:nth-child(3) {
+    min-height: 2.8em !important; // Match description Box height
+    height: 2.8em !important; // Fixed height so footer always starts at same position
+    max-height: 2.8em !important; // Prevent expansion
+    padding-top: 0 !important; // Override section padding to remove top padding
+    padding-bottom: 0 !important; // Ensure no bottom padding
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    flex-shrink: 0 !important; // Prevent section from shrinking
+    overflow: hidden !important; // Prevent content overflow
+  }
+
+  // Override Card component's footer container padding and margin to remove top spacing
+  // Target the footer container that Card component creates with data-menu-container attribute
+  [data-menu-container] {
+    padding: 0 12px 40px 12px !important; // top right bottom left - increased bottom padding to fill card height
+    margin-top: 0 !important; // Override margin-top: auto from Card component
+    margin-bottom: 0 !important; // Remove any bottom margin
+    overflow: hidden !important; // Prevent content from breaking out
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    position: relative !important; // Ensure it's positioned within card bounds
+    z-index: 1 !important;
+    flex-shrink: 0 !important; // Prevent footer from shrinking
+    min-height: 72px !important; // Ensure footer has enough height (32px avatar + 40px bottom padding)
+    cursor: default; // Default cursor for footer container
+    
+    // Menu button should have pointer cursor
+    > div:last-child {
+      cursor: pointer !important;
+      
+      // Ensure all children of menu button also have pointer
+      * {
+        cursor: pointer !important;
+      }
+    }
+  }
+
+}
+
+// Wrapper styling for inactive state
+.team-group-card-wrapper {
+  position: relative;
+  width: 100%;
+  height: 165px; // Fixed height to match card
+  margin: 0;
+  padding: 0;
+  overflow: hidden !important; // Prevent card from breaking out
+  box-sizing: border-box !important;
+  
+  &--inactive {
+    opacity: 0.65;
+    filter: grayscale(0.8);
+    overflow: hidden !important; // Ensure inactive cards are clipped
+    
+    // Ensure the card inside also gets the grayed background
+    .team-group-card {
+      background-color: rgba(245, 245, 245, 1) !important;
+      overflow: hidden !important; // Double ensure overflow is hidden
+    }
+  }
+}
+

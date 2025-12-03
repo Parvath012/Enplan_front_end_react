@@ -1,0 +1,229 @@
+{
+  "0-25%": [],
+  "25-50%": [
+    {
+      "app": "common-app",
+      "file": "common-app\\src\\components\\advancedsearch\\AdvancedSearchComponent.tsx",
+      "coverage": 48.50299401197605,
+      "uncoveredLines": [
+        79,
+        80,
+        90,
+        92,
+        93,
+        94,
+        133,
+        137,
+        139,
+        140,
+        141,
+        161,
+        164,
+        257,
+        263,
+        264,
+        266,
+        272,
+        273,
+        274,
+        280,
+        284,
+        285,
+        286,
+        292,
+        297,
+        298,
+        300,
+        301,
+        302,
+        303,
+        307,
+        313,
+        314,
+        318,
+        323,
+        324,
+        327,
+        329,
+        337,
+        338,
+        340,
+        341,
+        342,
+        345,
+        349,
+        353,
+        356,
+        359,
+        362,
+        365,
+        367,
+        369,
+        371,
+        401,
+        410,
+        420,
+        421,
+        422,
+        425,
+        427,
+        428,
+        429,
+        430,
+        433,
+        436,
+        445,
+        459,
+        460,
+        461,
+        462,
+        468,
+        510,
+        511,
+        512,
+        523,
+        535,
+        552,
+        565,
+        566,
+        569,
+        572
+      ],
+      "totalLines": 82
+    }
+  ],
+  "50-75%": [],
+  "75%+": [
+    {
+      "app": "entitySetup-app",
+      "file": "entitySetup-app\\src\\pages\\entitySetup\\EntitySetupForm.tsx",
+      "coverage": 97.5,
+      "uncoveredLines": [
+        282,
+        304
+      ],
+      "totalLines": 2
+    },
+    {
+      "app": "admin-app",
+      "file": "admin-app\\src\\components\\LeftSidebar\\LeftSidebar.tsx",
+      "coverage": 98.27586206896551,
+      "uncoveredLines": [
+        156
+      ],
+      "totalLines": 1
+    },
+    {
+      "app": "home-app",
+      "file": "home-app\\src\\App.tsx",
+      "coverage": 100,
+      "uncoveredLines": [],
+      "totalLines": 0
+    },
+    {
+      "app": "home-app",
+      "file": "home-app\\src\\bootstrap.tsx",
+      "coverage": 100,
+      "uncoveredLines": [],
+      "totalLines": 0
+    },
+    {
+      "app": "home-app",
+      "file": "home-app\\src\\index.tsx",
+      "coverage": 100,
+      "uncoveredLines": [],
+      "totalLines": 0
+    },
+    {
+      "app": "home-app",
+      "file": "home-app\\src\\components\\Header.jsx",
+      "coverage": 100,
+      "uncoveredLines": [],
+      "totalLines": 0
+    },
+    {
+      "app": "home-app",
+      "file": "home-app\\src\\components\\SideNavbar.tsx",
+      "coverage": 100,
+      "uncoveredLines": [],
+      "totalLines": 0
+    },
+    {
+      "app": "home-app",
+      "file": "home-app\\src\\routers\\Routers.tsx",
+      "coverage": 100,
+      "uncoveredLines": [],
+      "totalLines": 0
+    },
+    {
+      "app": "home-app",
+      "file": "home-app\\src\\store\\configureStore.tsx",
+      "coverage": 100,
+      "uncoveredLines": [],
+      "totalLines": 0
+    },
+    {
+      "app": "budgeting-app",
+      "file": "budgeting-app\\src\\App.tsx",
+      "coverage": 100,
+      "uncoveredLines": [],
+      "totalLines": 0
+    },
+    {
+      "app": "budgeting-app",
+      "file": "budgeting-app\\src\\bootstrap.tsx",
+      "coverage": 100,
+      "uncoveredLines": [],
+      "totalLines": 0
+    },
+    {
+      "app": "budgeting-app",
+      "file": "budgeting-app\\src\\index.tsx",
+      "coverage": 100,
+      "uncoveredLines": [],
+      "totalLines": 0
+    },
+    {
+      "app": "budgeting-app",
+      "file": "budgeting-app\\src\\components\\Header.jsx",
+      "coverage": 100,
+      "uncoveredLines": [],
+      "totalLines": 0
+    },
+    {
+      "app": "budgeting-app",
+      "file": "budgeting-app\\src\\routers\\Routers.tsx",
+      "coverage": 100,
+      "uncoveredLines": [],
+      "totalLines": 0
+    },
+    {
+      "app": "budgeting-app",
+      "file": "budgeting-app\\src\\store\\configureStore.tsx",
+      "coverage": 100,
+      "uncoveredLines": [],
+      "totalLines": 0
+    },
+    {
+      "app": "dataManagement-app",
+      "file": "dataManagement-app\\src\\store\\Actions\\authActions.ts",
+      "coverage": 100,
+      "uncoveredLines": [],
+      "totalLines": 0
+    },
+    {
+      "app": "entitySetup-app",
+      "file": "entitySetup-app\\src\\styles\\entitySetup.styles.ts",
+      "coverage": 100,
+      "uncoveredLines": [],
+      "totalLines": 0
+    },
+    {
+      "app": "userManagement-app",
+      "file": "userManagement-app\\src\\services\\userFetchService.ts",
+      "coverage": 100,
+      "uncoveredLines": [],
+      "totalLines": 0
+    }
+  ]
+}

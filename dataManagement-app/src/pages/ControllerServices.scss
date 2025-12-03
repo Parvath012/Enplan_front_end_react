@@ -1,0 +1,287 @@
+// ControllerServices component styles
+.controller-services {
+  
+  // Back button container to remove thin line
+  &__back-button {
+    // Ensure no border artifacts
+    &::before,
+    &::after {
+      display: none !important;
+    }
+    
+    // Match table icon hover styles
+    border-radius: 3px !important;
+    transition: background-color 0.1s ease !important;
+    
+    &:hover {
+      background-color: #e0e0e0 !important;
+      border-radius: 3px !important;
+    }
+  }
+
+  // AgGridShell fallback loading container
+  &__loading-fallback {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    width: 100%;
+  }
+
+  // Add controller service button
+  &__add-button {
+    position: relative;
+    width: 22px;
+    height: 22px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.06);
+    background: linear-gradient(180deg, #0f62fe 0%, #0353e9 100%);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    outline: none;
+
+    &:hover {
+      background: linear-gradient(180deg, #0353e9 0%, #0043ce 100%);
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15), 0px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    &:active {
+      box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+    }
+
+    // SVG icon inside add button
+    svg {
+      color: white;
+      width: 14px;
+      height: 18px;
+    }
+  }
+
+  // Grid wrapper container
+  &__grid-wrapper {
+    height: calc(100vh - 100px);
+    min-height: 400px;
+  }
+
+  // Error boundary fallback
+  &__error-boundary {
+    padding: 20px;
+    color: red;
+  }
+
+  // Footer overlay
+  &__footer {
+    position: fixed;
+    bottom: 0;
+    left: 60px; // Move slightly right to avoid sidebar overlap
+    right: 0;
+    z-index: 1001;
+
+    // Footer content box
+    &-content {
+      height: 46px;
+      background-color: rgba(247, 247, 246, 1);
+      border-top: 1px solid rgba(240, 239, 239, 1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      font-size: 12px;
+      color: #5B6061;
+      font-family: 'InterTight-Regular', 'Inter Tight', sans-serif;
+      font-weight: 400;
+      box-sizing: border-box;
+    }
+
+    // Count section
+    &-count {
+      margin-left: -24px;
+    }
+
+    // Last updated section
+    &-updated {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+
+      // Renew icon
+      .renew-icon {
+        color: #5B6061;
+      }
+    }
+  }
+}
+
+// Action buttons in the grid
+.controller-service-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  height: 100%;
+  padding: 2px 0;
+  pointer-events: auto; // Ensure click events work
+  position: relative;
+  z-index: 10; // Ensure buttons are above grid overlay
+
+  // Individual action button
+  &__button {
+    width: 28px;
+    height: 20px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: background-color 0.1s ease;
+    pointer-events: auto; // Ensure button clicks work
+    position: relative;
+    z-index: 11; // Ensure button is above container
+
+    &:hover:not(:disabled) {
+      background-color: #e0e0e0;
+    }
+
+    &:disabled {
+      cursor: wait;
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    // Icon styles
+    svg {
+      color: #6c757d;
+      pointer-events: none; // Prevent icon from blocking button clicks
+    }
+  }
+
+  // Loading spinner in action button
+  &__spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #0f62fe;
+    border-radius: 50%;
+    animation: controller-service-spin 1s linear infinite;
+  }
+}
+
+// Spinner animation
+@keyframes controller-service-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// Row styling based on service state
+.controller-service-row {
+  border-bottom: 1px solid rgba(247, 247, 246, 1);
+  
+  &--disabled {
+    background-color: #f5f5f5;
+    opacity: 0.7;
+  }
+
+  &--enabled {
+    background-color: rgba(255, 255, 255, 0);
+  }
+}
+
+// Remove row highlighting but keep individual cell highlighting for Controller Services grid
+.controller-services-wrapper {
+  .ag-theme-alpine {
+    // Disable row hover completely (entire row should not highlight)
+    --ag-row-hover-color: transparent !important;
+    
+    // Remove row hover effects - entire row should not highlight
+    .ag-row-hover,
+    .ag-row:hover,
+    .ag-row.ag-row-hover {
+      background-color: #ffffff !important;
+      
+      // Don't apply hover to all cells - only the specific cell being hovered
+      .ag-cell:not(:hover) {
+        background-color: #ffffff !important;
+      }
+    }
+    
+    // Keep individual cell hover effect (only the cell being hovered highlights)
+    .ag-cell:hover {
+      background-color: #f8f8f8 !important;
+    }
+    
+    // Ensure Type column cell hover works (AG Grid uses field name as col-id)
+    // Add higher specificity to override any conflicting styles
+    .ag-cell[col-id="type"]:hover,
+    .ag-row .ag-cell[col-id="type"]:hover,
+    .ag-cell.ag-cell-custom[col-id="type"]:hover {
+      background-color: #f8f8f8 !important;
+      pointer-events: auto !important;
+    }
+    
+    // Ensure Type column cell allows hover (remove any blocking styles)
+    .ag-cell[col-id="type"] {
+      pointer-events: auto !important;
+      
+      // Ensure inner content doesn't block hover
+      > * {
+        pointer-events: none !important;
+      }
+    }
+    
+    // Remove hover effects for all cells in a hovered row (except the one being hovered)
+    .ag-row:hover .ag-cell:not(:hover),
+    .ag-row-hover .ag-cell:not(:hover) {
+      background-color: #ffffff !important;
+    }
+    
+    // Ensure disabled rows maintain their styling without row hover
+    .controller-service-row--disabled:hover,
+    .controller-service-row--disabled.ag-row-hover {
+      background-color: #f5f5f5 !important;
+      opacity: 0.7 !important;
+      
+      // But allow individual cell hover even in disabled rows
+      .ag-cell:not(:hover) {
+        background-color: #f5f5f5 !important;
+      }
+      
+      .ag-cell:hover {
+        background-color: #f0f0f0 !important;
+        opacity: 0.8 !important;
+      }
+      
+      // Ensure Type column hover works in disabled rows too
+      .ag-cell[col-id="type"]:hover {
+        background-color: #f0f0f0 !important;
+        opacity: 0.8 !important;
+      }
+    }
+    
+    // Ensure enabled rows maintain white background (no row hover)
+    .controller-service-row--enabled:hover,
+    .controller-service-row--enabled.ag-row-hover {
+      background-color: #ffffff !important;
+      
+      // But allow individual cell hover
+      .ag-cell:not(:hover) {
+        background-color: #ffffff !important;
+      }
+    }
+    
+    // Remove hover effect for Actions column (last child)
+    .ag-cell:last-child:hover {
+      background-color: #ffffff !important;
+    }
+    
+    // Prevent action cell hover when hovering buttons
+    .ag-cell:has(button:hover):hover {
+      background-color: #ffffff !important;
+    }
+  }
+}

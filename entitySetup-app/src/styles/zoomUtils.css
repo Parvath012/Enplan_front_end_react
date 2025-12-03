@@ -1,0 +1,44 @@
+/* Minimal horizontal scrolling utilities for Entity Setup Form */
+/* Only activates when content overflows viewport */
+
+/* Basic horizontal scroll when needed */
+.entity-setup-form {
+  /* Default state - no horizontal scroll */
+  overflow-x: hidden;
+}
+
+/* Only enable horizontal scroll when content overflows */
+.entity-setup-form.overflow-detected {
+  overflow-x: auto;
+}
+
+/* Ensure form content doesn't get cut off */
+.entity-setup-form .MuiContainer-root {
+  min-width: fit-content;
+}
+
+/* Keep buttons accessible */
+.entity-setup-form .MuiButton-root {
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Custom scrollbar styling only when horizontal scroll is active */
+/* Very thin height for minimal visual impact */
+.entity-setup-form.overflow-detected::-webkit-scrollbar {
+  height: 2px; /* Very thin scrollbar for subtle appearance */
+}
+
+.entity-setup-form.overflow-detected::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 1px;
+}
+
+.entity-setup-form.overflow-detected::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 1px;
+}
+
+.entity-setup-form.overflow-detected::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}

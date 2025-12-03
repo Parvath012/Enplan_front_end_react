@@ -1,0 +1,523 @@
+# Table Grid Components
+
+A comprehensive suite of components for building powerful, flexible data grids with advanced features. These components are designed to work together with MUI X Data Grid to create enterprise-grade table experiences.
+
+## Components Overview
+
+1. Actions Column
+2. Custom Checkbox
+3. Custom Menu Icon
+4. Custom Sort Icon
+5. Grid Cell Renderer
+6. Grid Column Generation
+7. Custom Select
+8. Bulk Edit Button & Dialog
+9. Column Menu
+10. Custom Sort Button
+11. Custom Edit Cell
+12. Sort Dialog
+13. Reusable Sort Utilities
+14. GridSortMenuContext
+
+# Actions Column Component
+
+## Overview
+
+The Actions Column component is a dynamic, reusable solution for adding an actions menu to each row in a data grid. It provides a flexible and customizable way to implement row-level actions with an overflow menu.
+
+## Features
+
+- 🔹 Dynamic action item generation
+- 🔹 Customizable menu items
+- 🔹 Support for icons in menu items
+- 🔹 Memoized component for performance
+- 🔹 Flexible width configuration
+- 🔹 Accessibility-friendly
+
+## Installation
+
+No additional installation required beyond existing project dependencies.
+
+## Interfaces
+
+### ActionItem
+```typescript
+interface ActionItem {
+  label: string;     // Text displayed for the action
+  action: string;    // Unique identifier for the action
+  icon?: React.ReactNode;  // Optional icon for the action
+}
+```
+
+
+# Custom Checkbox Component
+
+## Overview
+
+The CustomCheckbox component is a highly flexible and customizable checkbox implementation built on top of Material-UI's Checkbox. It provides enhanced styling options, size configuration, and a clean, modern design with Carbon Icons integration.
+
+## Features
+
+- 🔹 Fully customizable checkbox styling
+- 🔹 Configurable box size
+- 🔹 Custom styles for checked and unchecked states
+- 🔹 Carbon Checkmark icon integration
+- 🔹 Extends Material-UI Checkbox props
+- 🔹 Ripple effect disabled for clean UI
+
+## Installation
+
+Ensure you have the following dependencies:
+- `@mui/material`
+- `@carbon/icons-react`
+
+## Props Interface
+
+```typescript
+interface CustomCheckboxProps extends CheckboxProps {
+    uncheckedStyle?: React.CSSProperties;     // Style for unchecked state
+    checkedStyle?: React.CSSProperties;       // Style for checked state
+    checkedIconStyle?: React.CSSProperties;   // Style for checkmark icon
+    boxSize?: number;                         // Checkbox size (default: 14)
+}
+```
+
+
+# Custom Menu Icon Component
+
+## Overview
+
+The CustomMenuIcon component is a flexible, customizable icon button component built with Material-UI and Carbon Icons. It provides a versatile solution for creating configurable menu icons with advanced styling options.
+
+## Features
+
+- 🔹 Highly customizable icon button
+- 🔹 Support for custom icons
+- 🔹 Configurable size and colors
+- 🔹 Smooth transition effects
+- 🔹 Disabled state handling
+- 🔹 Carbon Icons integration
+
+## Installation
+
+Ensure you have the following dependencies:
+- `@mui/material`
+- `@carbon/icons-react`
+
+## Props Interface
+
+```typescript
+interface CustomMenuIconProps {
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  className?: string;
+  icon?: React.ReactNode;
+  size?: number;
+  activeColor?: string;     // Default: '#0051AB'
+  inactiveColor?: string;   // Default: '#0051AB'
+}
+```
+
+# Custom Sort Icon Component
+
+## Overview
+
+The CustomSortIcon component is a dynamic and flexible sorting icon implementation for data grids. It provides a visually appealing and customizable way to represent different sorting states using Carbon Icons.
+
+## Features
+
+- 🔹 Dynamic sorting state representation
+- 🔹 Configurable icon sizes
+- 🔹 Customizable colors
+- 🔹 Smooth transition effects
+- 🔹 Carbon Icons integration
+- 🔹 Supports ascending, descending, and neutral states
+
+## Installation
+
+Ensure you have the following dependencies:
+- `@mui/x-data-grid`
+- `@carbon/icons-react`
+
+## Props Interface
+
+```typescript
+interface CustomSortIconProps {
+  direction?: GridSortDirection;  // Sort direction
+  className?: string;            // Optional CSS class
+  size?: number;                 // Icon size (default: 12)
+  activeColor?: string;          // Active state color (default: '#1976d2')
+  inactiveColor?: string;        // Inactive state color (default: '#666')
+  'data-testid'?: string;        // Optional test id
+}
+```
+
+# Grid Cell Renderer Component
+
+## Overview
+
+The GridCellRenderer is a flexible and customizable cell rendering component designed for data grids. It provides enhanced cell styling, tooltip support, and dynamic rendering capabilities.
+
+## Features
+
+- 🔹 Dynamic cell styling
+- 🔹 Full value tooltip
+- 🔹 Flexible style overrides
+- 🔹 Conditional rendering support
+- 🔹 Fallback styling mechanism
+- 🔹 Text formatting support (bold, italic, underline, strikethrough)
+- 🔹 Background and text color customization
+
+## Installation
+
+No additional installation required beyond existing project dependencies.
+
+## Props Interface
+
+```typescript
+interface Props {
+  params: GridRenderCellParams;  // Cell rendering parameters
+  style?: React.CSSProperties;   // Optional custom styling
+  className?: string;            // Optional additional CSS class names
+}
+```
+
+
+# Grid Column Generation Utility (`generateColumns` in `gridUtils.tsx`)
+
+## Overview
+
+The `generateColumns` utility (exported from `gridUtils.tsx`) is a powerful, flexible function for dynamically generating column configurations for data grids. It provides extensive customization options for column rendering, styling, and behavior.
+
+## Features
+
+- 🔹 Dynamic column generation from schema
+- 🔹 Customizable cell rendering
+- 🔹 Row-specific styling
+- 🔹 Conditional actions column
+- 🔹 Flexible header customization
+- 🔹 Sorting and menu icon support (with integration for CustomSortButton and ColumnMenu)
+- 🔹 Conditional cell editability
+- 🔹 Editable cells can be dropdowns if defined in the type
+- 🔹 Dynamic table configuration
+- 🔹 Dynamic column widths
+- 🔹 Cell text wrapping support
+- 🔹 Integration with Sort Context API
+
+## Installation
+
+No additional installation required beyond existing project dependencies.
+
+## Interfaces
+
+### ColumnSchema
+```typescript
+interface ColumnSchema {
+  aliasName: string;
+  // Add other potential schema properties
+}
+```
+
+### ColumnConfiguration
+```typescript
+interface ColumnConfiguration {
+  type: string;
+  isEditable: boolean;
+  // Add other potential schema properties
+}
+```
+
+# Custom Select Component
+
+## Overview
+The CustomSelect component is a flexible and customizable select input implementation built with Material-UI. It provides enhanced styling options and seamless integration with data grids and forms.
+
+## Features
+- 🔹 Fully customizable select input
+- 🔹 Configurable options
+- 🔹 Compact size
+- 🔹 Full-width layout
+- 🔹 Minimal styling
+- 🔹 Automatic focus
+- 🔹 Seamless event handling
+
+## Installation
+Ensure you have the following dependencies:
+- `@mui/material`
+- `react`
+
+## Props Interface
+```typescript
+interface CustomSelectProps {
+  value: string;                 // Current selected value
+  options: string[];             // Array of select options
+  onChange: (                    // Change event handler
+    value: string, 
+    event: React.ChangeEvent<any>
+  ) => void;
+}
+```
+
+# Bulk Edit Components
+
+## BulkEditButton
+A button component for triggering bulk edit actions in the data grid. Typically used to open the bulk edit dialog for selected rows.
+
+### Props Interface
+```typescript
+interface BulkEditButtonProps {
+  columnField?: string; // Optional prop to specify which column this button is for
+}
+```
+
+## BulkEditDialog
+A modal dialog component for performing bulk edits on multiple rows. Provides a user-friendly interface for editing fields in bulk.
+
+### Props Interface
+```typescript
+interface BulkEditDialogProps {
+  open: boolean;
+  onClose: () => void;
+}
+```
+
+### Features
+- 🔹 Data type detection
+- 🔹 Support for text, select, number, currency, and date inputs
+- 🔹 Input validation
+- 🔹 Bulk application to multiple cells
+- 🔹 Keyboard navigation and shortcuts
+
+# Column Menu
+
+## Overview
+
+The `ColumnMenu` component provides a contextual menu for column-specific actions in a data grid. It enables users to interact with individual columns, offering features such as sorting, filtering, hiding, and customizing columns. The menu is typically accessed via an icon button in the column header.
+
+## Features
+
+- 🔹 Column-specific sorting (ascending/descending)
+- 🔹 Multiple sort types (alphanumeric, numeric, date)
+- 🔹 Font and fill color sorting
+- 🔹 Customizable menu items and actions
+- 🔹 Integration with Material-UI and Carbon Icons
+- 🔹 Responsive and accessible design
+- 🔹 Context-based integration with GridSortMenuContext
+
+## Props Interface
+
+```typescript
+export interface ColumnMenuProps {
+  field: string;              // The field/column name
+  menuIcon?: React.ReactNode; // Optional custom menu icon
+}
+```
+
+## Context Integration
+
+The ColumnMenu component uses the `GridSortMenuContext` to access shared sorting functionality:
+
+```typescript
+export interface GridSortMenuContextType {
+  onSortAsc?: (field: string, type?: string | null) => void;
+  onSortDesc?: (field: string, type?: string | null) => void;
+  anchorEl?: HTMLElement | null;
+  menuField?: string | null;
+  handleMenuOpen?: (event: React.MouseEvent<HTMLButtonElement>, field: string) => void;
+  handleMenuClose?: () => void;
+  onClearSort?: (field: string) => void;
+}
+```
+
+## Accessibility
+
+- Keyboard navigable
+- ARIA attributes for menu and menu items
+
+## Dependencies
+
+- `@mui/material`
+- `@carbon/icons-react`
+- `@mui/x-data-grid`
+
+# Custom Sort Button Component
+
+## Overview
+
+The CustomSortButton component is a specialized button for triggering sort actions in a data grid. It provides a comprehensive sorting solution with support for sort direction cycling, sort priority indication, and different sort types.
+
+## Features
+
+- 🔹 Cyclical sort direction handling (none → descending → ascending → none)
+- 🔹 Visual sort priority indicators with multi-column sort support
+- 🔹 Support for different sort types (alphanumeric, numeric, date, etc.)
+- 🔹 Keyboard accessibility (Enter/Space to trigger sort)
+- 🔹 Integration with CustomSortIcon component
+- 🔹 Clean, minimal design with no default styling
+- 🔹 Full ARIA support for accessibility
+- 🔹 Sort priority badge with tooltips
+
+## Installation
+
+Ensure you have the following dependencies:
+- `@mui/x-data-grid`
+- `@carbon/icons-react` (used by the CustomSortIcon)
+
+## Props Interface
+
+```typescript
+interface CustomSortButtonProps {
+  field: string;                                // Field/column identifier to sort
+  sortDirection: string | null;                 // Current sort direction
+  sortPriority: number | null;                  // Sort priority (for multi-column sorting)
+  sortType: string | null;                      // Type of sort (e.g., "alphanumeric")
+  onSortAsc?: (field: string, type?: string | null) => void;   // Ascending sort handler
+  onSortDesc?: (field: string, type?: string | null) => void;  // Descending sort handler
+  onClearSort?: (field: string) => void;        // Clear sort handler
+}
+```
+
+# Custom Edit Cell Component
+
+## Overview
+The CustomEditCell component is a flexible editing solution for data grids, supporting both text and select input types with advanced styling and seamless integration with MUI DataGrid.
+
+## Features
+- 🔹 Supports text and select input types
+- 🔹 Seamless DataGrid integration
+- 🔹 Advanced styling options
+- 🔹 Automatic focus
+- 🔹 Flexible value handling
+- 🔹 Text wrapping support
+- 🔹 Text formatting (bold, italic, underline, strikethrough)
+- 🔹 Custom colors for text and background
+
+## Installation
+Ensure you have the following dependencies:
+- `@mui/x-data-grid`
+- `@mui/material`
+
+## Props Interface
+```typescript
+interface CustomEditCellProps extends GridRenderEditCellParams {
+    type?: CustomEditCellFields.TypeText | CustomEditCellFields.TypeSelect;
+    options?: string[];
+    isWrapped?: boolean;
+    formatting?: {
+      bold?: boolean;
+      italic?: boolean;
+      underline?: boolean;
+      strikethrough?: boolean;
+      textColor?: string;
+      fillColor?: string;
+    };
+    textColor?: string;
+    fillColor?: string;
+}
+```
+
+# Sort Dialog
+
+## Overview
+The SortDialog component provides a comprehensive interface for configuring multi-level, multi-type sorting in data grids. It enables users to create complex sort configurations with different sort types and orders.
+
+## Features
+- 🔹 Multi-level sorting
+- 🔹 Various sort types (alphanumeric, numeric, date, color)
+- 🔹 Customizable sort order per level
+- 🔹 Add, delete, and copy sort levels
+- 🔹 Intuitive user interface with Material-UI components
+- 🔹 Dynamic column selection
+- 🔹 Context-aware order labels (e.g., "A to Z" for alphanumeric, "Smallest to Largest" for numeric)
+- 🔹 Integration with Redux store (optional)
+
+## Sort Types
+- Alphanumeric (A-Z, Z-A)
+- Numeric (Smallest-to-Largest, Largest-to-Smallest)
+- Date (Earliest-to-Latest, Latest-to-Earliest)
+- Font Color (Ascending, Descending)
+- Fill Color (Ascending, Descending)
+
+## Props Interface
+```typescript
+interface SortDialogProps {
+  open: boolean;
+  onClose: () => void;
+  sortLevels?: Array<{ sortBy: string; sortOn: string; order: "asc" | "desc" }>;
+  onApplySort: (levels: Array<{ sortBy: string; sortOn: string; order: "asc" | "desc" }>) => void;
+  columns?: Array<{ field: string; headerName: string; hide?: boolean }>;
+}
+```
+
+# GridSortMenuContext
+
+## Overview
+The `GridSortMenuContext` provides a context API for sharing sort-related functionality across components. It enables centralized management of sorting operations, menu states, and column interactions.
+
+## Features
+- 🔹 Shared sort handlers across components
+- 🔹 Centralized menu state management
+- 🔹 Type-safe interface
+- 🔹 React Context API integration
+- 🔹 Reusable hook for easy consumption
+
+## Context Interface
+```typescript
+export interface GridSortMenuContextType {
+  onSortAsc?: (field: string, type?: string | null) => void;
+  onSortDesc?: (field: string, type?: string | null) => void;
+  anchorEl?: HTMLElement | null;
+  menuField?: string | null;
+  handleMenuOpen?: (event: React.MouseEvent<HTMLButtonElement>, field: string) => void;
+  handleMenuClose?: () => void;
+  onClearSort?: (field: string) => void;
+}
+```
+
+## Usage Hook
+```typescript
+export const useGridSortMenu = () => useContext(GridSortMenuContext);
+```
+
+# Reusable Sort Utilities
+
+## Overview
+The `reusableSortUtils.ts` file provides utility functions for sorting data in various ways and managing sort models.
+
+## Features
+- 🔹 Multi-column sort support
+- 🔹 Various sort types (alphanumeric, numeric, date, font color, fill color)
+- 🔹 Sort model management
+- 🔹 Pre-processing for color-based sorting
+- 🔹 Custom comparator functions
+- 🔹 Type-safe interfaces
+
+## Interfaces
+
+```typescript
+export interface SortModel {
+  field: string;
+  sort: 'asc' | 'desc';
+  type: SortType;
+  priority: number;
+}
+
+export interface SortLevel {
+  sortBy: string;
+  sortOn: string;
+  order: 'asc' | 'desc';
+}
+```
+
+## Functions
+
+### Sort Model Management
+- `getSortAscModel(sortModel, field, type)`: Creates a sort model for ascending sort
+- `getSortDescModel(sortModel, field, type)`: Creates a sort model for descending sort
+- `getClearSortModel(sortModel, field)`: Removes a field from the sort model
+
+### Data Processing
+- `preprocessRows(rows, formattingConfig)`: Preprocesses rows to add color sorting fields
+- `getComparator(type, direction, field)`: Gets a comparator function for a specific sort type
+- `applyMultiColumnSort(rows, sortLevels)`: Applies multi-column sorting to data rows
+
+

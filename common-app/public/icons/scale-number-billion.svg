@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="icon" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 32 32" width="24px" height="24px">
+  <defs>
+    <style>
+      .st0 {
+        fill: none;
+      }
+      .filled {
+        fill: #5B6061;
+      }
+    </style>
+  </defs>
+  <path class="filled" d="M22,10c0-2.49-2.01-4.5-4.5-4.5h-7.5v21h7.5c2.49,0,4.5-2.01,4.5-4.5v-3c0-1.11-.42-2.18-1.17-3,.75-.82,1.16-1.89,1.17-3v-3ZM13,8.5h4.5c.83,0,1.5.67,1.5,1.5v3c0,.83-.67,1.5-1.5,1.5h-4.5v-6ZM19,22c0,.83-.67,1.5-1.5,1.5h-4.5v-6h4.5c.83,0,1.5.67,1.5,1.5v3Z"/>
+  <rect id="_Transparent_Rectangle_" class="st0" width="32" height="32"/>
+</svg>

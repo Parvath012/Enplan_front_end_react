@@ -1,0 +1,66 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow: hidden;
+}
+
+#root {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+// Apply consistent font family to common UI elements
+button,
+input,
+select,
+textarea,
+label,
+span,
+p,
+div,
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+// Utility class for forcing font family when needed
+.enplan-font {
+  font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+// Override for Material UI components
+.MuiTypography-root,
+.MuiButton-root,
+.MuiInputBase-root,
+.MuiFormLabel-root,
+.MuiMenuItem-root,
+.MuiListItem-root,
+.MuiFormHelperText-root,
+.MuiInputLabel-root,
+.MuiFormControlLabel-label {
+  font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+// Hide Material-UI's required asterisk globally in user management app
+.MuiFormLabel-asterisk,
+.MuiInputLabel-asterisk,
+.MuiFormControlLabel-asterisk {
+  display: none !important;
+}
+
+// Hide asterisk in form field labels
+.form-field__label::after,
+.form-field--required .form-field__label::after {
+  content: none !important;
+  display: none !important;
+}

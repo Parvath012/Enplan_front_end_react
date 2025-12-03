@@ -1,0 +1,104 @@
+/**
+ * ReusablePanel Styles
+ * Overrides Panel's fixed 420px width to support custom widths
+ * while maintaining all other Panel functionality
+ */
+
+.reusable-panel-wrapper {
+  // Container for the panel wrapper
+  position: relative;
+  
+  // Override Panel's fixed width using CSS custom properties and higher specificity
+  .reusable-panel-inner.panel {
+    width: var(--panel-width, 420px) !important;
+    background-color: var(--panel-bg-color, rgba(255, 255, 255, 1)) !important;
+    
+    // Update header width to match
+    .panel__header {
+      width: var(--panel-width, 420px) !important;
+    }
+    
+    // Update actions footer width to match
+    .panel__actions {
+      width: var(--panel-width, 420px) !important;
+    }
+    
+    // Update initial position for slide animation
+    right: calc(-1 * var(--panel-width, 420px)) !important;
+    
+    // Update shadow position if needed
+    &.panel--open {
+      right: 0 !important;
+    }
+  }
+  
+  // Specific width overrides for common sizes
+  &.reusable-panel-width-480px {
+    .reusable-panel-inner.panel {
+      width: 480px !important;
+      
+      .panel__header {
+        width: 480px !important;
+      }
+      
+      .panel__actions {
+        width: 480px !important;
+      }
+      
+      right: -480px !important;
+      
+      &.panel--open {
+        right: 0 !important;
+      }
+    }
+  }
+  
+  &.reusable-panel-width-588px {
+    .reusable-panel-inner.panel {
+      width: 588px !important;
+      background-color: #fafafa !important;
+      
+      .panel__header {
+        width: 588px !important;
+        background-color: #fafafa !important;
+      }
+      
+      .panel__actions {
+        width: 588px !important;
+        background-color: #fafafa !important;
+      }
+      
+      .panel__content {
+        background-color: #fafafa !important;
+      }
+      
+      right: -588px !important;
+      
+      &.panel--open {
+        right: 0 !important;
+        box-shadow: -5px 0px 14px rgba(204, 204, 204, 0.349019607843137) !important;
+      }
+    }
+  }
+  
+  &.reusable-panel-width-380px {
+    .reusable-panel-inner.panel {
+      width: 380px !important;
+      
+      .panel__header {
+        width: 380px !important;
+      }
+      
+      .panel__actions {
+        width: 380px !important;
+      }
+      
+      right: -380px !important;
+      
+      &.panel--open {
+        right: 0 !important;
+      }
+    }
+  }
+}
+

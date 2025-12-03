@@ -1,0 +1,303 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow: hidden;
+}
+
+#root {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+// Apply consistent font family to common UI elements
+button,
+input,
+select,
+textarea,
+label,
+span,
+p,
+div,
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+// Utility class for forcing font family when needed
+.enplan-font {
+  font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+// Override for Material UI components
+.MuiTypography-root,
+.MuiButton-root,
+.MuiInputBase-root,
+.MuiFormLabel-root,
+.MuiMenuItem-root,
+.MuiListItem-root,
+.MuiFormHelperText-root,
+.MuiInputLabel-root,
+.MuiFormControlLabel-label {
+  font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+/* Data Management App Styles */
+
+/* Custom styles for the Controller Services page to enable scrolling */
+.controller-services-wrapper {
+  overflow: auto;
+  height: 100%;
+  width: 100%;
+}
+
+/* AG Grid Custom Styles - Apply to Alpine theme */
+.ag-theme-alpine {
+  width: 100% !important;
+  max-width: 100% !important;
+  --ag-background-color: #ffffff;
+  --ag-header-background-color: rgba(240, 239, 239, 1);
+  --ag-odd-row-background-color: #ffffff;
+  --ag-row-background-color: #ffffff;
+  --ag-row-border-color: rgba(247, 247, 246, 1);
+  /* Enable only one clean separator */
+  --ag-header-column-separator-display: block;
+  --ag-header-column-separator-color: rgb(180, 179, 178);
+  --ag-header-column-separator-height: 100%;
+  --ag-row-hover-color: transparent;
+  --ag-font-size: 10px;
+  --ag-font-family: 'InterTight-Regular', 'Inter Tight', sans-serif;
+  --ag-cell-horizontal-padding: 10px;
+  --ag-header-height: 34px;
+  --ag-row-height: 30px;
+  --ag-border-radius: 0px;
+  --ag-borders: solid 1px;
+  --ag-border-color: rgba(247, 247, 246, 1);
+  overflow: visible !important;
+
+  /* Remove the extra resize handle that appears as a second separator */
+  .ag-header-cell-resize {
+    display: none !important;
+  }
+
+  .ag-header-cell {
+    font-family: 'Inter18pt-SemiBold', 'Inter 18pt SemiBold', 'Inter 18pt', sans-serif;
+    font-weight: 650;
+    border-right: none !important;
+    
+    &-label {
+      padding-left: 4px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      width: 100% !important;
+      color: #818586 !important;
+      flex-direction: row !important;
+    }
+
+    /* Position text on left */
+    .ag-header-cell-text {
+      order: 1 !important;
+      flex: 1 !important;
+      text-align: left !important;
+      padding-right: 8px !important;
+    }
+
+    /* Position sorting icons on right */
+    .ag-header-icon {
+      order: 2 !important;
+      margin-left: auto !important;
+      margin-right: 4px !important;
+      flex-shrink: 0 !important;
+    }
+
+    /* Ensure the sort indicator container is positioned correctly */
+    .ag-sort-indicator-container {
+      order: 2 !important;
+      margin-left: auto !important;
+      display: flex !important;
+      align-items: center !important;
+    }
+
+    /* Force all sorting related elements to the right */
+    .ag-sort-ascending-icon,
+    .ag-sort-descending-icon,
+    .ag-sort-none-icon {
+      order: 2 !important;
+      margin-left: auto !important;
+    }
+  }
+
+  .ag-cell {
+    font-family: 'InterTight-Regular', 'Inter Tight', sans-serif;
+    font-weight: 400;
+    color: #5B6061;
+    display: flex;
+    align-items: center;
+    padding-left: 12px !important;
+    border-right: 1px solid rgba(247, 247, 246, 1);
+    background-color: #ffffff !important;
+    transition: background-color 0.1s ease;
+
+    /* Cell hover effect - only individual cells */
+    &:hover {
+      background-color: #f8f8f8 !important;
+    }
+
+    /* Remove hover effect for Actions column */
+    &:last-child:hover {
+      background-color: #ffffff !important;
+    }
+
+    /* Prevent action cell hover when hovering buttons */
+    &:has(button:hover) {
+      background-color: #ffffff !important;
+    }
+
+    /* Action button hover effects */
+    button:hover {
+      background-color: #e0e0e0 !important;
+      border-radius: 3px !important;
+    }
+  }
+
+  .ag-cell-custom-center {
+    justify-content: center;
+    padding-left: 0 !important;
+  }
+
+  .ag-row {
+    font-size: 10px;
+    border-bottom: 1px solid rgba(247, 247, 246, 1);
+    background-color: #ffffff !important;
+
+    /* Remove all row hover effects */
+    &:hover,
+    &.ag-row-hover {
+      background-color: #ffffff !important;
+    }
+  }
+
+  .ag-row-hover {
+    background-color: transparent !important;
+  }
+
+  .ag-row-even {
+    background-color: #ffffff !important;
+  }
+
+  .ag-row-odd {
+    background-color: #ffffff !important;
+  }
+
+  /* Ensure grid headers are visible */
+  .ag-header {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 10 !important;
+    overflow: visible !important;
+    border-bottom: 1px solid rgba(180, 180, 178, 1);
+  }
+
+  .ag-header-row {
+    overflow: visible !important;
+  }
+
+  /* Make sure the header row cells are properly aligned */
+  .ag-header-row-column {
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  /* Fix the cell content alignment */
+  .ag-cell-value {
+    width: 100%;
+  }
+
+  /* Ensure proper scrolling behavior */
+  .ag-body-viewport {
+    overflow: auto !important;
+    overflow-x: hidden !important;
+    border-bottom: none !important;
+  }
+
+  /* Fix for AG Grid header visibility */
+  .ag-header-viewport {
+    overflow: visible !important;
+    overflow-x: hidden !important;
+  }
+
+  .ag-row-disabled {
+    background-color: #f5f5f5;
+    opacity: 0.7;
+  }
+
+  /* Hide default sort icons */
+  .ag-header-cell-label .ag-header-icon {
+    &.ag-sort-ascending-icon,
+    &.ag-sort-descending-icon,
+    &.ag-sort-none-icon {
+      display: none !important;
+    }
+  }
+
+  /* Hide pagination panel completely */
+  .ag-paging-panel {
+    display: none !important;
+  }
+
+  /* Ensure consistent border styling for grid body */
+  .ag-root-wrapper {
+    border: 1px solid rgba(247, 247, 246, 1);
+    overflow-x: hidden !important;
+    border-bottom: none !important;
+  }
+
+  /* Prevent horizontal scrolling on the entire grid */
+  .ag-root {
+    overflow-x: hidden !important;
+  }
+
+  .ag-center-cols-viewport {
+    overflow-x: hidden !important;
+  }
+
+  .ag-center-cols-container {
+    overflow-x: hidden !important;
+  }
+
+  /* Remove any potential footer-related borders */
+  .ag-body {
+    border-bottom: none !important;
+  }
+
+  /* Remove any borders from Footer component and its children */
+  .MuiBox-root {
+    border: none !important;
+    border-top: none !important;
+    border-bottom: none !important;
+  }
+
+  /* Target Footer component specifically */
+  div[class*="footer"] {
+    border: none !important;
+    border-top: none !important;
+    border-bottom: none !important;
+  }
+
+  /* Remove borders from any elements inside footer area */
+  .MuiContainer-root {
+    border: none !important;
+    border-top: none !important;
+    border-bottom: none !important;
+  }
+}

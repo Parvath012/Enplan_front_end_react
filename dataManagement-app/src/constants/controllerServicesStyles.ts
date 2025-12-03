@@ -1,0 +1,190 @@
+﻿// Column width configurations for different screen sizes
+export const COLUMN_WIDTH_CONFIG = {
+  // Small screens (< 768px)
+  small: {
+    name: { minWidth: 220, maxWidth: 280, flex: 1 },
+    type: { minWidth: 240, maxWidth: 300, flex: 2 },
+    bundle: { minWidth: 180, maxWidth: 220, flex: 1 },
+    state: { minWidth: 100, maxWidth: 100, flex: 0.5 },
+    actions: { minWidth: 140, maxWidth: 140, flex: 0.8 }
+  },
+  // Medium screens (768px - 1280px)
+  medium: {
+    name: { minWidth: 240, maxWidth: 320, flex: 1 },
+    type: { minWidth: 260, maxWidth: 340, flex: 2 },
+    bundle: { minWidth: 200, maxWidth: 240, flex: 1 },
+    state: { minWidth: 100, maxWidth: 100, flex: 0.5 },
+    actions: { minWidth: 140, maxWidth: 140, flex: 0.8 }
+  },
+  // Large screens (> 1280px)
+  large: {
+    name: { minWidth: 280, maxWidth: 360, flex: 1 },
+    type: { minWidth: 300, maxWidth: 400, flex: 2 },
+    bundle: { minWidth: 240, maxWidth: 300, flex: 1 },
+    state: { minWidth: 100, maxWidth: 100, flex: 0.5 },
+    actions: { minWidth: 160, maxWidth: 160, flex: 0.8 }
+  }
+};
+
+export const CONTROLLER_SERVICES_STYLES = {
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 0,
+    height: "calc(100vh - 42px)",
+    p: 0,
+    width: "100%",
+    position: "relative",
+    overflow: "auto"
+  },
+  contentBox: {
+    display: "flex",
+    flexDirection: "column",
+    gap: 0,
+    flex: 1,
+    width: "100%",
+    px: 0,
+    position: "relative",
+    height: "auto",
+  },
+  gridContainer: {
+    width: "100%",
+    flex: 1,
+    mt: 0,
+    overflow: "visible",
+    border: "1px solid rgba(247, 247, 246, 1)",
+    boxSizing: "border-box",
+    maxWidth: "100%"
+  },
+  gridWrapper: {
+    height: "100%",
+    width: "100%",
+    boxSizing: "border-box" as const,
+    overflow: "visible"
+  },
+  header: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    mb: 0.5,
+    py: 0.5,
+    px: 0
+  },
+  actionCell: {
+    position: "relative",
+    width: "160px",
+    height: "30px",
+    padding: 0,
+    margin: 0,
+    boxSizing: "border-box"
+  },
+  actionCellBody: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    width: "160px",
+    height: "30px",
+    backgroundColor: "rgba(255,255,255,0)",
+    borderStyle: "solid",
+    borderColor: "rgba(247, 247, 246, 1)",
+    borderWidth: "0 1px 0 0",
+    borderRadius: 0,
+    background: "inherit",
+    boxSizing: "border-box",
+    display: "flex",
+    alignItems: "center",
+    padding: 0,
+    margin: 0,
+  },
+  editButton: {
+    position: "absolute",
+    top: "4px",
+    left: "4px",
+    width: "31px",
+    height: "22px",
+    padding: 0,
+    backgroundColor: "rgba(255,255,255,0)",
+    border: "none",
+    borderRadius: "4px",
+    "&:hover": { backgroundColor: "rgba(0,0,0,0.04)" },
+  },
+  deleteButton: {
+    position: "absolute",
+    top: "4px",
+    left: "40px",
+    width: 31,
+    height: 22,
+    padding: 0,
+    backgroundColor: "rgba(255,255,255,0)",
+    border: "none",
+    borderRadius: "4px",
+    "&:hover": { backgroundColor: "rgba(0,0,0,0.04)" },
+  },
+  toggleButton: {
+    position: "absolute",
+    top: "4px",
+    left: "75px",
+    width: "31px",
+    height: "22px",
+    padding: 0,
+    backgroundColor: "rgba(255,255,255,0)",
+    border: "none",
+    borderRadius: "4px",
+    "&:hover": { backgroundColor: "rgba(0,0,0,0.04)" },
+  },
+  toggleSwitchContainer: {
+    width: 30,
+    height: 14,
+    position: "absolute",
+    top: "7px",
+    left: "75px"
+  },
+  detailsButton: {
+    position: "absolute",
+    top: "4px",
+    left: "110px",
+    width: "78px",
+    height: "22px",
+    textTransform: "none",
+    fontSize: "10px",
+    fontWeight: 400,
+    fontFamily: "'InterTight-Regular', 'Inter Tight', sans-serif",
+    color: "#5B6061",
+    minWidth: 0,
+    padding: 0,
+    backgroundColor: "rgba(255,255,255,0)",
+    border: "none",
+    borderRadius: "4px",
+    justifyContent: "center",
+  },
+  viewButton: {
+    position: "absolute",
+    top: "4px",
+    left: "120px",
+    width: "31px",
+    height: "22px",
+    padding: 0,
+    backgroundColor: "rgba(255,255,255,0)",
+    border: "none",
+    borderRadius: "4px",
+    "&:hover": { backgroundColor: "rgba(0,0,0,0.04)" },
+  },
+  configureButton: {
+    position: "absolute",
+    top: "4px",
+    left: "100px",
+    width: "78px",
+    height: "22px",
+    textTransform: "none",
+    fontSize: "10px",
+    fontWeight: 400,
+    fontFamily: "'InterTight-Regular', 'Inter Tight', sans-serif",
+    color: "#5B6061",
+    minWidth: 0,
+    padding: 0,
+    backgroundColor: "rgba(255,255,255,0)",
+    border: "none",
+    borderRadius: "4px",
+    justifyContent: "center",
+  }
+};

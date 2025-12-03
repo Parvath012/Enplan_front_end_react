@@ -1,0 +1,124 @@
+// Transfer Responsibilities Panel Styles
+// Import unified panel blur styles
+@use '../../styles/panelBlur.scss' as *;
+
+$primary-color: #006FE6;
+$text-secondary: #5F6368;
+$text-primary: #4A4E52;
+$border-color: #F2F2F0;
+$default-text-color: #B4B7BA;
+$error-color: #D32F2F;
+
+// Transfer panel specific styles
+// Note: Base panel styles (width, height, position, z-index, backdrop, header, content, actions) 
+// are defined in common-app/src/components/common/Panel/Panel.scss
+// This file only contains transfer-panel specific field styles
+
+// Ensure panel title font size is 14px (targets the actual panel__title class used by Panel component)
+.transfer-panel .panel__title {
+  font-size: 14px !important;
+}
+
+.transfer-panel {
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    
+    // When using form-field classes, remove gap since SelectField handles its own spacing
+    &.form-field {
+      gap: 0;
+      
+      // Ensure consistent 8px spacing for all form-field labels in transfer panel
+      .form-field__label {
+        margin-bottom: 8px !important;
+      }
+    }
+  }
+
+  &__field-label {
+    font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    font-weight: 500 !important;
+    font-style: normal !important;
+    font-size: 12px !important;
+    color: #4A4E52 !important;
+    margin: 0 !important;
+  }
+
+  &__reset-btn {
+    left: -2px !important;
+    top: -1px !important;
+    width: 79px !important;
+    height: 34px !important;
+    font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    font-weight: 500 !important;
+    font-style: normal !important;
+    font-size: 14px !important;
+    color: #006FE6 !important;
+    text-align: left !important;
+    background-color: transparent !important;
+    border: none !important;
+    text-transform: none !important;
+    min-width: auto !important;
+    padding: 0 !important;
+    
+    &:hover {
+      background-color: transparent !important;
+      color: #006FE6 !important;
+    }
+  }
+
+  &__submit-btn {
+    width: 62px !important;
+    height: 30px !important;
+    background: inherit !important;
+    background-color: rgba(0, 111, 230, 1) !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    font-weight: 500 !important;
+    font-style: normal !important;
+    font-size: 14px !important;
+    color: white !important;
+    text-align: center !important;
+    text-transform: none !important;
+    min-width: auto !important;
+    padding: 0 !important;
+    
+    &:hover {
+      background-color: #0056B3 !important;
+    }
+    
+    &:disabled {
+      background-color: #E0E0E0 !important;
+      color: #9E9E9E !important;
+    }
+  }
+}
+
+// Animation keyframes
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .transfer-panel {
+    width: 100vw !important;
+    right: -100vw !important;
+    
+    &--open {
+      right: 0 !important;
+    }
+    
+    &__header {
+      width: 100% !important;
+    }
+  }
+}
+

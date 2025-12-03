@@ -1,0 +1,353 @@
+// Period Setup Component Styles
+@use "sass:color";
+
+$primary-color: #1976d2;
+$text-secondary: #5F6368;
+$border-color: rgba(242, 242, 240, 1);
+$background-color: rgba(255, 255, 255, 1);
+$divider-color: #E0E0E0;
+
+   .period-setup {
+    width: 1290px;
+    height: 463px;
+    background: inherit;
+    background-color: $background-color;
+    box-sizing: border-box;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-left: -10px;
+
+  &__section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    &:first-child {
+      margin-bottom: 0;
+    }
+  }
+
+     &__section-header {
+     display: flex;
+     align-items: center;
+     gap: 40px;
+     margin-bottom: 16px;
+   }
+
+     &__section-title {
+     font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+     font-weight: 500 !important;
+     font-style: normal !important;
+     font-size: 14px !important;
+     color: #4A4E52 !important;
+     margin: 0 !important;
+     white-space: nowrap;
+     min-width: fit-content;
+   }
+
+  &__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  &__form-row {
+    display: flex;
+    gap: 28px;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+  }
+
+  &__form-column {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    min-width: 0;
+    flex-shrink: 0;
+  }
+
+  &__info-column {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+    flex: 1;
+  }
+
+                 &__format-info {
+       font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+       font-weight: 400 !important;
+       font-style: normal !important;
+       font-size: 12px !important;
+       color: #777B80 !important;
+       text-align: left !important;
+       line-height: 20px !important;
+       margin: 0 !important;
+
+       strong {
+         font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+         font-weight: 500 !important;
+         font-style: normal !important;
+         font-size: 12px !important;
+         color: #5F6368 !important;
+       }
+     }
+
+     &__format-link {
+     font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+     font-weight: 400 !important;
+     font-style: normal !important;
+     font-size: 12px !important;
+     color: $primary-color !important;
+     text-decoration: underline !important;
+     cursor: pointer !important;
+     background: none !important;
+     border: none !important;
+     padding: 0 !important;
+     margin: 0 !important;
+
+     &:hover {
+       color: color.adjust($primary-color, $lightness: -10%) !important;
+     }
+   }
+
+  &__slider-column {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+    flex: 1;
+  }
+
+     &__slider-label {
+     font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+     font-weight: 500 !important;
+     font-style: normal !important;
+     font-size: 12px !important;
+     color: #5F6368 !important;
+     margin: 0 !important;
+   }
+
+     &__slider-container {
+     display: flex;
+     flex-direction: column;
+     gap: 4px;
+     position: relative;
+   }
+
+     &__slider {
+     width: 400px !important;
+     height: 6px !important;
+
+         .MuiSlider-track {
+      height: 10px !important;
+      background-color: transparent !important;
+      border: none !important;
+      border-radius: 4px !important;
+    }
+
+     .MuiSlider-rail {
+       width: 420px !important;
+       height: 10px !important;
+       background-color: rgba(240, 239, 239, 1) !important;
+       border: none !important;
+       border-radius: 4px !important;
+     }
+
+     .MuiSlider-thumb {
+       background-color: transparent !important;
+       border: none !important;
+       box-shadow: none !important;
+       width: 0 !important;
+       height: 0 !important;
+
+       &:hover {
+         box-shadow: none !important;
+       }
+     }
+
+     // Active state when both dropdowns are selected
+     &--active {
+       .MuiSlider-track {
+         background-color: rgba(0, 111, 230, 1) !important;
+       }
+
+       .MuiSlider-thumb {
+         background-color: white !important;
+         border: 1px solid $primary-color !important;
+         width: 18px !important;
+         height: 18px !important;
+
+         &:hover {
+           box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
+         }
+       }
+     }
+
+     .MuiSlider-valueLabel {
+       background-color: $primary-color !important;
+       color: white !important;
+       font-size: 12px !important;
+       font-weight: 500 !important;
+     }
+   }
+
+   // Single thumb mode - hide the second thumb
+   &--single-thumb {
+     .MuiSlider-thumb:nth-child(2) {
+       display: none !important;
+     }
+   }
+
+     &__slider-text {
+     font-size: 10px !important;
+     color: $text-secondary !important;
+     text-align: center !important;
+     margin: 0 !important;
+     position: absolute !important;
+     left: 210px !important; // Center of 420px rail (420/2 = 210px)
+     transform: translateX(-50%) !important;
+     top: 25px !important; // Adjusted to align better with slider
+   }
+
+   &__slider-divider {
+     position: absolute !important;
+     left: 210px !important; // Center of 420px rail (420/2 = 210px)
+     transform: translateX(-50%) !important;
+     top: 11px !important; // Align with the top of the slider rail
+     width: 1px !important;
+     height: 9px !important; // Match rail height
+     background-color: #5F6368 !important;
+     z-index: 1 !important;
+   }
+
+   &__slider-thumb-label {
+     position: absolute !important;
+     font-size: 10px !important;
+     color: $text-secondary !important;
+     text-align: center !important;
+     margin: 0 !important;
+     top: 25px !important; // Below the slider thumbs
+     transform: translateX(-50%) !important;
+   }
+
+  &__divider {
+    height: 1px;
+    background: repeating-linear-gradient(
+      to right,
+      transparent,
+      transparent 4px,
+      $divider-color 4px,
+      $divider-color 8px
+    );
+    margin: 24px 0;
+    flex-shrink: 0;
+  }
+
+     // Override Material-UI form field styles to match design
+   .form-field {
+     &__label {
+       font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+       font-weight: 500 !important;
+       font-style: normal !important;
+       font-size: 12px !important;
+       color: #5F6368 !important;
+       margin-bottom: 8px !important;
+     }
+
+    &__input {
+      .MuiOutlinedInput-root {
+        height: 30px !important;
+        font-size: 12px !important;
+        color: $text-secondary !important;
+
+        &.Mui-disabled {
+          background-color: #F5F5F5 !important;
+          color: #9E9E9E !important;
+        }
+      }
+    }
+
+    &__select {
+      height: 30px !important;
+      font-size: 12px !important;
+      color: $text-secondary !important;
+
+      &.Mui-disabled {
+        background-color: #F5F5F5 !important;
+        color: #9E9E9E !important;
+      }
+    }
+
+    &__placeholder {
+      color: $text-secondary !important;
+      opacity: 0.7 !important;
+    }
+  }
+
+     // Specific field width overrides
+   .form-field--financial-year-name,
+   .form-field--start-month,
+   .form-field--end-month,
+   .form-field--week-name {
+     width: 219px !important;
+   }
+
+   .form-field--historical-data-start-fy,
+   .form-field--spanning-years {
+     width: 343px !important;
+   }
+
+   .form-field--month-for-week-one,
+   .form-field--starting-day-of-week {
+     width: 266px !important;
+   }
+
+     &__year-slider {
+    margin-top: 8px;
+    
+    .MuiSlider-thumb {
+      pointer-events: none !important;
+    }
+    
+    .MuiSlider-track {
+      pointer-events: none !important;
+    }
+    
+    .MuiSlider-rail {
+      pointer-events: none !important;
+    }
+  }
+}
+
+ // Responsive adjustments
+ @media (max-width: 1200px) {
+   .period-setup {
+     width: 100%;
+     max-width: 1290px;
+   }
+ }
+
+ @media (max-width: 768px) {
+   .period-setup {
+     padding: 16px;
+     height: auto;
+     min-height: 463px;
+
+    &__form-row {
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    &__section-header {
+      flex-direction: column;
+      gap: 8px;
+    }
+  }
+}

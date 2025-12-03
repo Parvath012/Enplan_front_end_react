@@ -1,0 +1,100 @@
+// Styles for Group Create Form - Red left border on inputs
+// Match exact color and width from common-app: #FF4D4F and 2px
+.group-create-form {
+  .form-field {
+    // Ensure consistent styling for all input fields
+    &__input {
+      .MuiOutlinedInput-root {
+        border-top-left-radius: 8px !important;
+        border-bottom-left-radius: 8px !important;
+        
+        .MuiOutlinedInput-notchedOutline {
+          border-left: none !important;
+          border-radius: 8px !important;
+          // Apply red border using box-shadow to match common-app pattern exactly
+          box-shadow: inset 2px 0 0 #FF4D4F !important;
+        }
+        
+        // Maintain red border on hover
+        &:hover .MuiOutlinedInput-notchedOutline {
+          box-shadow: inset 2px 0 0 #FF4D4F !important;
+        }
+        
+        // Remove red border on focus, use blue border
+        &.Mui-focused .MuiOutlinedInput-notchedOutline {
+          box-shadow: none !important;
+          border-left: 1px solid #1976d2 !important;
+        }
+      }
+      
+      // Override: Remove red border for readonly fields (like Group Name in edit mode)
+      &--readonly {
+        .MuiOutlinedInput-root {
+          .MuiOutlinedInput-notchedOutline {
+            box-shadow: none !important;
+          }
+          
+          // Also remove the pseudo-element red border from common-app styles
+          &::before {
+            display: none !important;
+          }
+          
+          &:hover .MuiOutlinedInput-notchedOutline {
+            box-shadow: none !important;
+          }
+        }
+      }
+    }
+
+    &__select {
+      .MuiOutlinedInput-root {
+        border-top-left-radius: 8px !important;
+        border-bottom-left-radius: 8px !important;
+        
+        .MuiOutlinedInput-notchedOutline {
+          border-left: none !important;
+          border-radius: 8px !important;
+          // Apply red border using box-shadow - match common-app exactly
+          box-shadow: inset 2px 0 0 #FF4D4F !important;
+        }
+        
+        // Maintain red border on hover
+        &:hover .MuiOutlinedInput-notchedOutline {
+          box-shadow: inset 2px 0 0 #FF4D4F !important;
+        }
+        
+        // Remove red border on focus, use blue border
+        &.Mui-focused .MuiOutlinedInput-notchedOutline {
+          box-shadow: none !important;
+          border-left: 1px solid #1976d2 !important;
+        }
+      }
+    }
+
+    &__multiselect {
+      .MuiOutlinedInput-root {
+        border-top-left-radius: 8px !important;
+        border-bottom-left-radius: 8px !important;
+        
+        .MuiOutlinedInput-notchedOutline {
+          border-left: none !important;
+          border-radius: 8px !important;
+          // Apply red border using box-shadow - match common-app exactly
+          box-shadow: inset 2px 0 0 #FF4D4F !important;
+        }
+        
+        // Maintain red border on hover
+        &:hover .MuiOutlinedInput-notchedOutline {
+          box-shadow: inset 2px 0 0 #FF4D4F !important;
+        }
+        
+        // Remove red border on focus, use blue border
+        &.Mui-focused .MuiOutlinedInput-notchedOutline {
+          box-shadow: none !important;
+          border-left: 1px solid #1976d2 !important;
+        }
+      }
+    }
+  }
+}
+

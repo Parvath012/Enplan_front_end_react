@@ -1,0 +1,263 @@
+// Local variables for this component
+$primary-color: #006FE6;
+$text-secondary: #5F6368;
+$text-primary: #4A4E52;
+$border-color: #F2F2F0;
+$default-text-color: #B4B7BA;
+$preview-bg: #F9F9F9;
+
+.format-panel {
+  width: 420px !important;
+  height: 100vh !important;
+  background-color: rgba(255, 255, 255, 1) !important;
+  border: 1px solid rgba(242, 242, 240, 1) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  position: fixed !important;
+  right: -420px !important; // Start off-screen
+  top: 0 !important;
+  z-index: 1001 !important;
+  transition: right 0.3s ease-in-out !important; // Smooth slide-in animation
+
+  &--open {
+    right: 0 !important; // Slide into view when open
+  }
+
+  &__backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    z-index: 1000;
+    cursor: pointer;
+    animation: fadeIn 0.3s ease-in-out;
+    pointer-events: auto;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__header {
+    width: 420px !important;
+    height: 42px !important;
+    background: inherit !important;
+    background-color: rgba(255, 255, 255, 1) !important;
+    box-sizing: border-box !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: rgba(242, 242, 240, 1) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 0 16px !important;
+  }
+
+  &__title {
+    font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    font-weight: 650 !important;
+    font-style: normal !important;
+    font-size: 12px !important;
+    color: #4A4E52 !important;
+    text-align: left !important;
+  }
+
+  &__close-icon {
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 8px !important;
+    color: #6c757d !important;
+    background-color: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    cursor: pointer !important;
+    
+    &:hover {
+      color: #495057 !important;
+      background-color: #f0f0f0 !important;
+    }
+    
+    .MuiIconButton-root {
+      width: 30px !important;
+      height: 30px !important;
+      padding: 0 !important;
+    }
+  }
+
+  &__content {
+    flex: 1;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__section-title {
+    font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    font-weight: 500 !important;
+    font-style: normal !important;
+    font-size: 12px !important;
+    color: #5F6368 !important;
+    text-align: left !important;
+    line-height: 18px !important;
+    margin-bottom: 16px !important;
+  }
+
+  &__radio-group {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    align-items: flex-start !important;
+    
+    .MuiFormGroup-root {
+      align-items: flex-start !important;
+    }
+  }
+
+  &__radio-item {
+    margin: 0 !important;
+    align-items: flex-start !important;
+    
+    .MuiFormControlLabel-label {
+      margin-left: 8px !important;
+    }
+    
+    .MuiFormControlLabel-root {
+      margin: 0 !important;
+      align-items: flex-start !important;
+    }
+  }
+
+  &__radio {
+    // CustomRadio component handles its own styling
+    // This class is kept for any additional FormatPanel-specific styling if needed
+    display: block;
+  }
+
+  &__radio-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__radio-text {
+    font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    font-weight: 400 !important;
+    font-style: normal !important;
+    font-size: 12px !important;
+    color: #5F6368 !important;
+  }
+
+  &__default-text {
+    font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    font-weight: 400 !important;
+    font-style: italic !important;
+    font-size: 12px !important;
+    color: #B4B7BA !important;
+    text-align: left !important;
+    line-height: 18px !important;
+  }
+
+  &__preview-section {
+    border-top: 1px dotted rgba(242, 242, 240, 1);
+    background-color: rgba(255, 255, 255, 1);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__preview-label {
+    font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    font-weight: 400 !important;
+    font-style: normal !important;
+    font-size: 14px !important;
+    color: #5F6368 !important;
+    text-align: left !important;
+    line-height: 16px !important;
+  }
+
+  &__preview-text {
+    font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    font-weight: 400 !important;
+    font-style: normal !important;
+    font-size: 12px !important;
+    color: #5F6368 !important;
+    text-align: left !important;
+    line-height: 16px !important;
+  }
+
+  &__actions {
+    width: 420px !important;
+    height: 46px !important;
+    background: inherit !important;
+    background-color: rgba(255, 255, 255, 1) !important;
+    box-sizing: border-box !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: rgba(242, 242, 240, 1) !important;
+    border-radius: 0px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 0 20px !important;
+  }
+
+  &__cancel-btn {
+    left: -2px !important;
+    top: -1px !important;
+    width: 79px !important;
+    height: 34px !important;
+    font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    font-weight: 500 !important;
+    font-style: normal !important;
+    font-size: 14px !important;
+    color: #006FE6 !important;
+    text-align: left !important;
+    line-height: 20px !important;
+    text-transform: none !important;
+    min-width: auto !important;
+    padding: 0 !important;
+    
+    &:hover {
+      background-color: transparent !important;
+      color: #006FE6 !important;
+    }
+  }
+
+  &__save-btn {
+    width: 62px !important;
+    height: 30px !important;
+    background: inherit !important;
+    background-color: rgba(0, 111, 230, 1) !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    font-weight: 500 !important;
+    font-style: normal !important;
+    font-size: 14px !important;
+    color: #D0F0FF !important;
+    text-align: left !important;
+    line-height: 20px !important;
+    text-transform: none !important;
+    min-width: auto !important;
+    padding: 0 !important;
+    
+    &:hover {
+      background-color: rgba(0, 111, 230, 0.9) !important;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+// Global blur effect for admin sidebar when format panel is open
+.format-panel-blur {
+  filter: blur(4px) !important;
+  -webkit-filter: blur(4px) !important;
+  transition: filter 0.3s ease-in-out !important;
+}

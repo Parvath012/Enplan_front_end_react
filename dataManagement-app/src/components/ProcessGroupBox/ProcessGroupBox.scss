@@ -1,0 +1,190 @@
+// Process Group Box Menu Styles
+// Using BEM naming convention for better maintainability
+
+// Force pointer cursor globally on all menu elements and remove ripple
+.MuiMenu-root, .MuiMenu-paper, .MuiMenuItem-root, .MuiListItemIcon-root, .MuiListItemText-root {
+  cursor: pointer !important;
+  
+  * {
+    cursor: pointer !important;
+  }
+}
+
+// Remove all ripple effects globally
+.MuiTouchRipple-root {
+  display: none !important;
+}
+
+.MuiMenuItem-root {
+  .MuiTouchRipple-root {
+    display: none !important;
+  }
+}
+
+.process-group-menu {
+  &__paper {
+    min-width: 200px;
+    border-radius: 4px !important;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15) !important;
+    margin-top: 4px;
+    cursor: pointer !important;
+    
+    // Hide scrollbar but keep scroll functionality
+    overflow-y: auto !important;
+    scrollbar-width: none !important; // Firefox
+    -ms-overflow-style: none !important; // IE and Edge
+    
+    &::-webkit-scrollbar {
+      display: none !important; // Chrome, Safari, Opera
+    }
+
+    * {
+      cursor: pointer !important;
+    }
+  }
+
+  &__list {
+    padding: 4px 0 !important;
+    cursor: pointer !important;
+    
+    // Hide scrollbar but keep scroll functionality
+    scrollbar-width: none !important; // Firefox
+    -ms-overflow-style: none !important; // IE and Edge
+    
+    &::-webkit-scrollbar {
+      display: none !important; // Chrome, Safari, Opera
+    }
+
+    * {
+      cursor: pointer !important;
+    }
+  }
+
+  &__item {
+    padding: 8px 16px !important;
+    font-size: 13px !important;
+    font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    color: #5B6061 !important;
+    min-height: 36px !important;
+    cursor: pointer !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    
+    // Remove ripple effect
+    .MuiTouchRipple-root {
+      display: none !important;
+    }
+    
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.04) !important;
+      cursor: pointer !important;
+    }
+
+    &:active {
+      background-color: rgba(0, 0, 0, 0.08) !important;
+    }
+
+    // Menu item with submenu indicator
+    &--with-submenu {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer !important;
+      
+      * {
+        cursor: pointer !important;
+      }
+
+      // Override default cursor
+      &, & * {
+        cursor: pointer !important;
+      }
+
+      // Force pointer cursor on all states
+      &:hover, &:active, &:focus {
+        cursor: pointer !important;
+        
+        * {
+          cursor: pointer !important;
+        }
+      }
+    }
+
+    // Highlighted menu item (Group item has grey background)
+    &--highlighted {
+      background-color: rgba(0, 0, 0, 0.02) !important;
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.06) !important;
+      }
+    }
+  }
+
+  &__icon {
+    min-width: 32px !important;
+    color: #5a5a5a !important;
+    cursor: pointer !important;
+    
+    svg {
+      color: #5a5a5a !important;
+      cursor: pointer !important;
+    }
+  }
+
+  &__text {
+    margin: 0 !important;
+    cursor: pointer !important;
+    
+    .MuiListItemText-primary {
+      font-size: 13px !important;
+      font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+      font-weight: 400 !important;
+      color: #5B6061 !important;
+      cursor: pointer !important;
+    }
+  }
+
+  &__submenu-icon {
+    margin-left: auto;
+    color: #5a5a5a !important;
+    cursor: pointer !important;
+  }
+
+  &__divider {
+    margin: 4px 0 !important;
+    background-color: rgba(0, 0, 0, 0.08) !important;
+    display: none !important; // Hide all dividers
+  }
+}
+
+// Ensure menu doesn't interfere with box interactions
+.process-group-box {
+  position: relative;
+}
+
+// Submenu styling - instant appearance, no animation, no effects
+.process-group-submenu {
+  .MuiPaper-root {
+    margin-left: 0px !important;
+    margin-top: -4px !important;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+
+  // Block all transitions and animations on all elements
+  *, *::before, *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+// Selected state for process group box
+.process-group-box.selected {
+  border: 1px solid #1976d2 !important;
+  box-shadow: 0 0 0 1px #1976d2, 0 2px 4px rgba(0, 0, 0, 0.15) !important;
+}
+

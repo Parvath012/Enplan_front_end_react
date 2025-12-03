@@ -1,0 +1,7 @@
+// Import unified panel blur styles
+@use '../../styles/panelBlur.scss' as *;
+
+// Ensure panel title font size is 14px
+.bulk-upload-panel .panel__title {
+  font-size: 14px !important;
+}

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="136" height="36" viewBox="0 0 136 36">
+  <!-- Background transparent -->
+  
+  <!-- Stylized Paper Plane Icon -->
+  <g transform="translate(0,2)">
+    <path d="M0 16 L22 6 L17 21 L14 18 L10 22 Z" fill="#00B39F"/>
+    <path d="M4 15 L14 9 L13 21 Z" fill="#FFFFFF" fill-opacity="0.15"/>
+    <path d="M14 9 L22 6" stroke="#FFFFFF" stroke-opacity="0.2" stroke-width="1"/>
+  </g>
+  
+  <!-- Text: ENPLAN -->
+  <text x="28" y="23" font-family="Segoe UI, Arial, sans-serif" font-weight="700"
+        font-size="16" fill="#0B2540" letter-spacing="1">EN</text>
+  <text x="60" y="23" font-family="Segoe UI, Arial, sans-serif" font-weight="600"
+        font-size="16" fill="#0078A8" letter-spacing="1">PLAN</text>
+</svg>

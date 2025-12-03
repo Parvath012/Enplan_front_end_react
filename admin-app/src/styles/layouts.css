@@ -1,0 +1,51 @@
+.app-container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.content-container {
+  flex: 1;
+  margin-left: 48px; /* Width of the left sidebar */
+  position: relative;
+  height: 100%;
+  overflow: hidden; /* Change to hidden to prevent scrollbars on the container */
+}
+
+.base-content {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.admin-content {
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 42px);
+  box-sizing: border-box;
+  padding: 0; /* avoid padding adding to height and causing scrollbars */
+  margin: 42px 0 0 0; /* push content below fixed header without affecting height */
+  overflow: auto; /* Allow scrolling in admin content area */
+}
+
+.data-management-content {
+  position: absolute;
+  width: 100%;
+  height: calc(100% - 42px);
+  box-sizing: border-box;
+  padding: 0; /* avoid padding adding to height and causing scrollbars */
+  margin: 42px 0 0 0; /* push content below fixed header without affecting height */
+  overflow: auto; /* Allow scrolling in admin content area */
+}
+

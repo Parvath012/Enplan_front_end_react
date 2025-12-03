@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 32 32" width="24px" height="24px">
+  <defs>
+    <style>
+      .st0 {
+        fill: none;
+      }
+    </style>
+  </defs>
+  <path fill="#5B6061" d="M28,2H10c-1.1,0-2,.9-2,2v3h-4c-1.1,0-2,.9-2,2v19c0,1.1.9,2,2,2h24c1.1,0,2-.9,2-2V4c0-1.1-.9-2-2-2ZM28,14h-8v-5h8v5ZM10,21v-5h8v5h-8ZM18,23v5h-8v-5h8ZM18,9v5h-8v-5h8ZM20,16h8v5h-8v-5ZM20,28v-5h8v5h-8Z"/>
+  <path class="st0" d="M0,0h32v32H0V0Z"/>
+</svg>

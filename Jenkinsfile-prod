@@ -1,0 +1,546 @@
+pipeline {
+    agent { label 'enplan' }
+    
+    options {
+        timeout(time: 30, unit: 'MINUTES')
+        disableConcurrentBuilds()
+    }
+
+    parameters {
+        choice(name: 'MANUAL_ACTION', choices: ['Deploy', 'Restore'], description: 'Select action')
+        choice(name: 'APP_TO_RESTORE', choices: ['all', 'home-app', 'admin-app', 'common-app', 'budgeting-app', 'dataManagement-app', 'entitySetup-app', 'userManagement-app'], description: 'Select app to restore (only applicable for Restore action)')
+        choice(name: 'DEPLOYMENT_TIMING', choices: ['Deploy Now', 'Deploy at 4:00 AM'], description: 'When to deploy (only applicable for Deploy action)')
+    }
+
+    environment {
+        // App names
+        HOME_APP = 'home-app'
+        ADMIN_APP = 'admin-app'
+        COMMON_APP = 'common-app'
+        BUDGETING_APP = 'budgeting-app'
+        DATAMANAGEMENT_APP = 'dataManagement-app'
+        ENTITYSETUP_APP = 'entitySetup-app'
+        USERMANAGEMENT_APP = 'userManagement-app'
+        
+        // Production server configuration (118)
+        PROD_SERVER = "172.16.20.118"
+        PROD_SHARE_PATH = "//${PROD_SERVER}/enplan-artifacts/frontend/react/deploy"
+        PROD_BACKUP_DIR = "//${PROD_SERVER}/enplan-artifacts/frontend/react/backup"
+        
+        // Storage directory for production artifacts
+        PROD_ARTIFACT_STORAGE_DIR = "/home/enplanrunner/enplan_artifacts_for_prod/frontend"
+    }
+
+    stages {
+        stage('Prepare') {
+            steps {
+                script {
+                    echo "Production action triggered: ${params.MANUAL_ACTION}"
+                    
+                    if (params.MANUAL_ACTION == 'Restore') {
+                        echo "App selected for restore: ${params.APP_TO_RESTORE}"
+                    } else if (params.MANUAL_ACTION == 'Deploy') {
+                        echo "Deployment timing: ${params.DEPLOYMENT_TIMING}"
+                    }
+
+                    // Ensure Production artifacts storage directory exists
+                    sh """
+                        mkdir -p ${PROD_ARTIFACT_STORAGE_DIR}
+                        chmod 777 ${PROD_ARTIFACT_STORAGE_DIR}
+                        echo "Production artifacts directory: ${PROD_ARTIFACT_STORAGE_DIR}"
+                        ls -la ${PROD_ARTIFACT_STORAGE_DIR}
+                    """
+                }
+            }
+        }
+
+        stage('Schedule Deployment') {
+            when { 
+                allOf {
+                    expression { params.MANUAL_ACTION == 'Deploy' }
+                    expression { params.DEPLOYMENT_TIMING == 'Deploy at 4:00 AM' }
+                }
+            }
+            steps {
+                script {
+                    // Find artifacts to get a list of apps to deploy
+                    def artifactsOutput = sh(script: "find ${PROD_ARTIFACT_STORAGE_DIR} -name '*.tar.gz' || echo ''", returnStdout: true).trim()
+                    
+                    if (!artifactsOutput) {
+                        error "No artifacts found in production storage directory: ${PROD_ARTIFACT_STORAGE_DIR}"
+                    }
+                    
+                    // Extract app names from artifacts
+                    def apps = []
+                    artifactsOutput.split('\n').each { filePath ->
+                        if (filePath) {
+                            def fileName = filePath.tokenize('/')[-1]
+                            def appName = fileName.replace('.tar.gz', '')  // Extract app name from filename
+                            apps.add(appName)
+                        }
+                    }
+                    
+                    // Calculate the next 4:00 AM time
+                    def now = new Date()
+                    def cal = Calendar.instance
+                    cal.time = now
+                    def currentHour = cal.get(Calendar.HOUR_OF_DAY)
+                    def currentMinute = cal.get(Calendar.MINUTE)
+                    
+                    // If it's already past 4:00 AM, schedule for next day
+                    if (currentHour > 4 || (currentHour == 4 && currentMinute > 0)) {
+                        cal.add(Calendar.DAY_OF_MONTH, 1)
+                    }
+                    
+                    // Set time to 4:00 AM
+                    cal.set(Calendar.HOUR_OF_DAY, 4)
+                    cal.set(Calendar.MINUTE, 0)
+                    cal.set(Calendar.SECOND, 0)
+                    
+                    def deployTime = cal.time
+                    def formattedTime = deployTime.format("yyyy-MM-dd HH:mm:ss")
+                    def cronExpression = "${cal.get(Calendar.MINUTE)} ${cal.get(Calendar.HOUR_OF_DAY)} ${cal.get(Calendar.DAY_OF_MONTH)} ${cal.get(Calendar.MONTH) + 1} *"
+                    
+                    echo "Deployment will be scheduled for ${formattedTime}"
+                    echo "Apps that will be deployed: ${apps.join(', ')}"
+                    
+                    // Create a temporary script to execute at the scheduled time with proper escaping
+                    sh """
+                        mkdir -p /home/enplanrunner/scheduled_deployments
+                        cat > /home/enplanrunner/scheduled_deployments/frontend_deploy_at_${cal.timeInMillis}.sh << 'END_OF_SCRIPT'
+#!/bin/bash
+# Scheduled production deployment script for frontend
+LOGFILE="/home/enplanrunner/scheduled_deployments/frontend_deploy_log_\$(date +%Y%m%d%H%M%S).log"
+
+echo "Starting scheduled frontend production deployment at \$(date)" | tee \$LOGFILE
+
+# Configure Jenkins connection details
+JENKINS_URL="http://jenkins.iqgateway.com:8080"
+if [[ "\$JENKINS_URL" != */ ]]; then
+    JENKINS_URL="\$JENKINS_URL/"
+fi
+
+# Jenkins credentials
+JENKINS_USER="venkatesh.gurudatta"
+JENKINS_API_TOKEN="113b3e4b832c4a530c78696cc6b3b35c3e"
+
+# Use the correct job path including folder structure for frontend production deployment
+JOB_PATH="job/Enplan/job/EnPlan-Frontend-React%20(Production-Deployment)"
+
+echo "Using Jenkins URL: \$JENKINS_URL" | tee -a \$LOGFILE
+echo "Job path: \$JOB_PATH" | tee -a \$LOGFILE
+echo "Attempting to trigger build with API token..." | tee -a \$LOGFILE
+
+# Use basic authentication with API token and a timeout to prevent hanging
+HTTP_STATUS=\$(curl --connect-timeout 10 --max-time 30 -s -o /dev/null -w "%{http_code}" -u "\$JENKINS_USER:\$JENKINS_API_TOKEN" \\
+    -X POST "\${JENKINS_URL}\${JOB_PATH}/buildWithParameters?MANUAL_ACTION=Deploy&DEPLOYMENT_TIMING=Deploy%20Now")
+
+if [[ "\$HTTP_STATUS" == "201" || "\$HTTP_STATUS" == "200" ]]; then
+    echo "Successfully triggered Jenkins build with status \$HTTP_STATUS" | tee -a \$LOGFILE
+else
+    echo "Failed to trigger Jenkins build. HTTP status: \$HTTP_STATUS" | tee -a \$LOGFILE
+    
+    # Retry with full response for debugging
+    echo "Retrying with full response output for debugging..." | tee -a \$LOGFILE
+    curl -v --connect-timeout 10 --max-time 30 -u "\$JENKINS_USER:\$JENKINS_API_TOKEN" \\
+        -X POST "\${JENKINS_URL}\${JOB_PATH}/buildWithParameters?MANUAL_ACTION=Deploy&DEPLOYMENT_TIMING=Deploy%20Now" 2>&1 | tee -a \$LOGFILE
+    
+    # If that fails, try with build endpoint instead of buildWithParameters
+    if [ "\$HTTP_STATUS" != "201" ] && [ "\$HTTP_STATUS" != "200" ]; then
+        echo "First attempt failed. Trying build endpoint instead..." | tee -a \$LOGFILE
+        curl -v --connect-timeout 10 --max-time 30 -u "\$JENKINS_USER:\$JENKINS_API_TOKEN" \\
+            -X POST "\${JENKINS_URL}\${JOB_PATH}/build" 2>&1 | tee -a \$LOGFILE
+    fi
+fi
+
+# Wait for a moment to allow Jenkins to process the request
+sleep 10
+
+# Check if artifacts are still present in the storage directory
+echo "Checking if artifacts are still present in storage directory:" | tee -a \$LOGFILE
+ls -la ${PROD_ARTIFACT_STORAGE_DIR} >> \$LOGFILE
+
+echo "Script execution completed at \$(date)" | tee -a \$LOGFILE
+chmod 644 \$LOGFILE
+END_OF_SCRIPT
+                        chmod +x /home/enplanrunner/scheduled_deployments/frontend_deploy_at_${cal.timeInMillis}.sh
+                    """
+                    
+                    // Schedule the script with at command
+                    def minute = cal.get(Calendar.MINUTE)
+                    def minuteStr = minute < 10 ? "0${minute}" : "${minute}"
+                    sh "echo '/home/enplanrunner/scheduled_deployments/frontend_deploy_at_${cal.timeInMillis}.sh' | at ${cal.get(Calendar.HOUR_OF_DAY)}:${minuteStr} ${cal.get(Calendar.MONTH) + 1}/${cal.get(Calendar.DAY_OF_MONTH)}/${cal.get(Calendar.YEAR)}"
+                    
+                    echo "Deployment has been scheduled for ${formattedTime}. The following apps will be deployed: ${apps.join(', ')}"
+                    echo "You can check scheduled jobs with 'atq' command or cancel with 'atrm <job_id>'"
+                    echo "Logs will be available in /home/enplanrunner/scheduled_deployments/frontend_deploy_log_*.log"
+                }
+            }
+        }
+
+        stage('Restore Production Backup') {
+            when { expression { params.MANUAL_ACTION == 'Restore' } }
+            steps {
+                script {
+                    def apps = []
+                    
+                    // Determine which apps to restore based on the parameter
+                    if (params.APP_TO_RESTORE == 'all') {
+                        apps = [
+                            "${env.HOME_APP}",
+                            "${env.ADMIN_APP}",
+                            "${env.COMMON_APP}",
+                            "${env.BUDGETING_APP}",
+                            "${env.DATAMANAGEMENT_APP}",
+                            "${env.ENTITYSETUP_APP}",
+                            "${env.USERMANAGEMENT_APP}"
+                        ]
+                    } else {
+                        apps = [params.APP_TO_RESTORE]
+                    }
+                    
+                    echo "Will restore backup for the following app(s): ${apps.join(', ')}"
+
+                    for (app in apps) {
+                        def backupPath = "${env.PROD_BACKUP_DIR}/${app}"
+                        def deployPath = "${env.PROD_SHARE_PATH}/${app}"
+
+                        echo "Restoring backup for ${app} in PRODUCTION from ${backupPath} to ${deployPath}..."
+
+                        withCredentials([usernamePassword(credentialsId: 'windows-cifs-credentials-118', usernameVariable: 'WIN_USER', passwordVariable: 'WIN_PASS')]) {
+                            sh """
+                                set -e
+                                sudo mkdir -p /mnt/backup_restore_folder
+                                sudo mkdir -p /mnt/frontend_deploy_folder
+
+                                if mountpoint -q /mnt/backup_restore_folder; then
+                                    sudo umount /mnt/backup_restore_folder
+                                fi
+
+                                if mountpoint -q /mnt/frontend_deploy_folder; then
+                                    sudo umount /mnt/frontend_deploy_folder
+                                fi
+                                
+                                # Try mounting with different SMB versions if needed
+                                echo "Mounting backup folder ${backupPath}..."
+                                if ! timeout 30s sudo mount -t cifs '${backupPath}' /mnt/backup_restore_folder -o username=\$WIN_USER,password=\$WIN_PASS,file_mode=0777,dir_mode=0777,vers=3.0; then
+                                    echo "Mount failed with SMB v3, trying with SMB v2.0..."
+                                    if ! timeout 30s sudo mount -t cifs '${backupPath}' /mnt/backup_restore_folder -o username=\$WIN_USER,password=\$WIN_PASS,file_mode=0777,dir_mode=0777,vers=2.0; then
+                                        echo "Mount operation failed for backup folder. Creating directory structure..."
+                                        
+                                        # Try to create directory structure
+                                        sudo mkdir -p /mnt/frontend_parent
+                                        if sudo mount -t cifs "//${PROD_SERVER}/enplan-artifacts" /mnt/frontend_parent -o username=\$WIN_USER,password=\$WIN_PASS,file_mode=0777,dir_mode=0777; then
+                                            echo "Creating backup path structure..."
+                                            sudo mkdir -p "/mnt/frontend_parent/frontend/react/backup/${app}"
+                                            sudo umount /mnt/frontend_parent
+                                            
+                                            # Try mounting again
+                                            if ! timeout 30s sudo mount -t cifs '${backupPath}' /mnt/backup_restore_folder -o username=\$WIN_USER,password=\$WIN_PASS,file_mode=0777,dir_mode=0777; then
+                                                echo "Mount still failed. Exiting."
+                                                exit 1
+                                            fi
+                                        else
+                                            echo "Mount operation failed for parent folder"
+                                            exit 1
+                                        fi
+                                    fi
+                                fi
+                                
+                                echo "Mounting deploy folder ${deployPath}..."
+                                if ! timeout 30s sudo mount -t cifs '${deployPath}' /mnt/frontend_deploy_folder -o username=\$WIN_USER,password=\$WIN_PASS,file_mode=0777,dir_mode=0777; then
+                                    echo "Mount operation failed for deploy folder. Creating directory structure..."
+                                    
+                                    # Try to create directory structure
+                                    sudo mkdir -p /mnt/frontend_parent
+                                    if sudo mount -t cifs "//${PROD_SERVER}/enplan-artifacts" /mnt/frontend_parent -o username=\$WIN_USER,password=\$WIN_PASS,file_mode=0777,dir_mode=0777; then
+                                        echo "Creating deploy path structure..."
+                                        sudo mkdir -p "/mnt/frontend_parent/frontend/react/deploy/${app}"
+                                        sudo umount /mnt/frontend_parent
+                                        
+                                        # Try mounting again
+                                        if ! timeout 30s sudo mount -t cifs '${deployPath}' /mnt/frontend_deploy_folder -o username=\$WIN_USER,password=\$WIN_PASS,file_mode=0777,dir_mode=0777; then
+                                            echo "Mount still failed for deploy folder. Exiting."
+                                            sudo umount -f /mnt/backup_restore_folder || true
+                                            exit 1
+                                        fi
+                                    else
+                                        echo "Mount operation failed for parent folder"
+                                        sudo umount -f /mnt/backup_restore_folder || true
+                                        exit 1
+                                    fi
+                                fi
+
+                                # List all contents of backup folder for debugging
+                                echo "Contents of backup folder:"
+                                ls -la /mnt/backup_restore_folder/
+                                
+                                # Find backup folders with proper error handling
+                                backup_folders=\$(find /mnt/backup_restore_folder -maxdepth 1 -type d -name "backup_*" 2>/dev/null || echo "")
+                                
+                                if [ -z "\$backup_folders" ]; then
+                                    echo "No backup folders found for ${app} in production"
+                                    sudo umount /mnt/backup_restore_folder
+                                    sudo umount /mnt/frontend_deploy_folder
+                                    exit 1
+                                fi
+                                
+                                # Get the latest backup folder
+                                latest_backup=\$(ls -dt \$backup_folders | head -n1)
+                                
+                                echo "Restoring files from: \$latest_backup"
+                                echo "Contents of latest backup:"
+                                ls -la "\$latest_backup" || echo "Empty or nonexistent backup directory"
+                                
+                                # Check if there are files to copy
+                                if [ -d "\$latest_backup" ] && [ "\$(ls -A \$latest_backup 2>/dev/null)" ]; then
+                                    echo "Copying files from backup..."
+                                    sudo cp -r "\$latest_backup"/* /mnt/frontend_deploy_folder/
+                                    echo "Restored \$(find \$latest_backup -type f | wc -l) files"
+                                else
+                                    echo "WARNING: No files found in backup directory to restore"
+                                fi
+                                
+                                # Verify deployed files
+                                echo "Files in deploy directory after restore:"
+                                ls -la /mnt/frontend_deploy_folder/
+                                
+                                sudo umount /mnt/backup_restore_folder
+                                sudo umount /mnt/frontend_deploy_folder
+                            """
+                        }
+
+                        echo "Backup restored for ${app} in PRODUCTION environment."
+                    }
+                }
+            }
+        }
+
+        stage('Deploy to Production') {
+            when { 
+                allOf {
+                    expression { params.MANUAL_ACTION == 'Deploy' }
+                    expression { params.DEPLOYMENT_TIMING == 'Deploy Now' }
+                }
+            }
+            steps {
+                script {
+                    def artifacts = [:]
+                    
+                    // Find existing artifacts in production storage
+                    def artifactsOutput = sh(script: "find ${PROD_ARTIFACT_STORAGE_DIR} -name '*.tar.gz' || echo ''", returnStdout: true).trim()
+                    
+                    if (!artifactsOutput) {
+                        error "No artifacts found in production storage directory: ${PROD_ARTIFACT_STORAGE_DIR}"
+                    }
+                    
+                    // Map artifacts by app name
+                    artifactsOutput.split('\n').each { filePath ->
+                        if (filePath) {
+                            def fileName = filePath.tokenize('/')[-1]
+                            def appName = fileName.replace('.tar.gz', '')  // Extract app name from filename
+                            artifacts[appName] = filePath
+                        }
+                    }
+                    
+                    // Deploy all apps that have artifacts available
+                    def apps = artifacts.keySet() as List
+                    
+                    if (apps.isEmpty()) {
+                        error "No deployable artifacts found in ${PROD_ARTIFACT_STORAGE_DIR}"
+                    }
+                    
+                    echo "Starting deployment to PRODUCTION server (118) for apps: ${apps.join(', ')}"
+                    
+                    // Deploy each app
+                    for (app in apps) {
+                        def artifactPath = artifacts[app]
+                        def deployPath = "${env.PROD_SHARE_PATH}/${app}"
+                        def backupPath = "${env.PROD_BACKUP_DIR}/${app}"
+                        
+                        echo "Deploying ${app} to PRODUCTION using artifact: ${artifactPath}"
+                        
+                        withCredentials([usernamePassword(credentialsId: 'windows-cifs-credentials-118', usernameVariable: 'WIN_USER', passwordVariable: 'WIN_PASS')]) {
+                            sh """
+                                sudo mkdir -p /mnt/frontend_backup_folder /mnt/frontend_deploy_folder
+
+                                # === Create backup directory if it doesn't exist ===
+                                if ! sudo mount -t cifs ${backupPath} /mnt/frontend_backup_folder -o username=${WIN_USER},password=${WIN_PASS},file_mode=0777,dir_mode=0777 2>/dev/null; then
+                                    echo "Backup folder doesn't exist, creating it..."
+                                    
+                                    # Try mounting at the top level first to create directories
+                                    sudo mkdir -p /mnt/frontend_parent
+                                    
+                                    # Try with top level first
+                                    if sudo mount -t cifs "//${PROD_SERVER}/enplan-artifacts" /mnt/frontend_parent -o username=${WIN_USER},password=${WIN_PASS},file_mode=0777,dir_mode=0777; then
+                                        echo "Successfully mounted top level share"
+                                        
+                                        # Create directory structure
+                                        sudo mkdir -p "/mnt/frontend_parent/frontend/react/backup/${app}"
+                                        sudo mkdir -p "/mnt/frontend_parent/frontend/react/deploy/${app}"
+                                        sudo umount /mnt/frontend_parent
+                                        
+                                        # Now try mounting the specific path
+                                        if ! sudo mount -t cifs ${backupPath} /mnt/frontend_backup_folder -o username=${WIN_USER},password=${WIN_PASS},file_mode=0777,dir_mode=0777; then
+                                            echo "Warning: Created directories but still can't mount specific backup path"
+                                            # Continue execution - we'll handle deploy path separately
+                                        fi
+                                    else
+                                        echo "Unable to mount top level share, checking if root share exists"
+                                        # Try mounting the server root to see if we can access it
+                                        if sudo mount -t cifs "//${PROD_SERVER}" /mnt/frontend_parent -o username=${WIN_USER},password=${WIN_PASS},file_mode=0777,dir_mode=0777; then
+                                            echo "Connected to server root, checking available shares"
+                                            ls -la /mnt/frontend_parent/
+                                            sudo umount /mnt/frontend_parent
+                                            
+                                            # Create directories on the server
+                                            echo "Please run these commands on the Windows server (118):"
+                                            echo "mkdir -p C:\\enplan-artifacts\\frontend\\react\\backup\\${app}"
+                                            echo "mkdir -p C:\\enplan-artifacts\\frontend\\react\\deploy\\${app}"
+                                            echo "Then share the enplan-artifacts folder"
+                                            
+                                            # Continue with deployment anyway
+                                            echo "Continuing without backup for now, will attempt to create deploy directory"
+                                        else
+                                            echo "Could not connect to the server root. Please check server connectivity and credentials."
+                                            echo "Will attempt to continue with deployment"
+                                        fi
+                                    fi
+                                fi
+
+                                # === Create backup folder even if mount failed ===
+                                TIMESTAMP=\$(date +%Y%m%d%H%M%S)
+                                BACKUP_FOLDER="/mnt/frontend_backup_folder/backup_\$TIMESTAMP"
+                                echo "Creating backup folder: \$BACKUP_FOLDER"
+                                if mountpoint -q /mnt/frontend_backup_folder; then
+                                    sudo mkdir -p "\$BACKUP_FOLDER"
+                                else
+                                    echo "Warning: Backup folder not mounted, skipping backup creation"
+                                fi
+                                
+                                # === Create deploy directory if it doesn't exist ===
+                                if ! sudo mount -t cifs ${deployPath} /mnt/frontend_deploy_folder -o username=${WIN_USER},password=${WIN_PASS},file_mode=0777,dir_mode=0777 2>/dev/null; then
+                                    echo "Deploy folder doesn't exist, creating it..."
+                                    
+                                    # Try mounting at the top level to create directories
+                                    sudo mkdir -p /mnt/frontend_parent
+                                    
+                                    if sudo mount -t cifs "//${PROD_SERVER}/enplan-artifacts" /mnt/frontend_parent -o username=${WIN_USER},password=${WIN_PASS},file_mode=0777,dir_mode=0777; then
+                                        # Create necessary directory structure
+                                        sudo mkdir -p "/mnt/frontend_parent/frontend/react/deploy/${app}"
+                                        sudo umount /mnt/frontend_parent
+                                        
+                                        if ! sudo mount -t cifs ${deployPath} /mnt/frontend_deploy_folder -o username=${WIN_USER},password=${WIN_PASS},file_mode=0777,dir_mode=0777; then
+                                            # Try with a simplified approach by mounting with SMB version specified
+                                            echo "Retrying with SMB version specified..."
+                                            if ! sudo mount -t cifs ${deployPath} /mnt/frontend_deploy_folder -o username=${WIN_USER},password=${WIN_PASS},vers=3.0,file_mode=0777,dir_mode=0777; then
+                                                # Create a local temporary directory to use instead
+                                                echo "CRITICAL: Cannot mount deploy directory. Creating local directory to continue."
+                                                sudo rm -rf /mnt/frontend_deploy_folder
+                                                sudo mkdir -p /mnt/frontend_deploy_folder
+                                                echo "WARNING: Changes will not be stored on the server!"
+                                                # Continue without failing
+                                            fi
+                                        fi
+                                    else
+                                        # Create a local temporary directory
+                                        echo "Cannot mount or create deploy directory. Creating local directory."
+                                        sudo rm -rf /mnt/frontend_deploy_folder
+                                        sudo mkdir -p /mnt/frontend_deploy_folder
+                                        echo "WARNING: Changes will not be stored on the server!"
+                                    fi
+                                fi
+
+                                # Backup existing files, but only if the directory isn't empty
+                                if [ "\$(ls -A /mnt/frontend_deploy_folder)" ]; then
+                                    sudo cp -r /mnt/frontend_deploy_folder/* "\$BACKUP_FOLDER/"
+                                    echo "Existing files backed up to \$BACKUP_FOLDER"
+                                else
+                                    echo "No files found in /mnt/frontend_deploy_folder to backup for ${app}."
+                                fi
+
+                                # Keep only last 5 backups
+                                sudo ls -dt /mnt/frontend_backup_folder/backup_* | tail -n +6 | xargs -r -I {} sudo rm -rf {}
+                                
+                                # Create a temp directory for extracting
+                                mkdir -p /tmp/extract_${app}
+                                rm -rf /tmp/extract_${app}/*
+                                tar -xzf ${artifactPath} -C /tmp/extract_${app}
+
+                                # Remove existing files from deploy directory
+                                sudo rm -rf /mnt/frontend_deploy_folder/* || {
+                                    echo "Failed to clean deploy directory"
+                                    sudo umount /mnt/frontend_backup_folder
+                                    sudo umount /mnt/frontend_deploy_folder
+                                    exit 1
+                                }
+
+                                # Copy new files to deploy directory
+                                sudo cp -r /tmp/extract_${app}/* /mnt/frontend_deploy_folder/ || {
+                                    echo "Failed to copy files to deploy directory"
+                                    sudo umount /mnt/frontend_backup_folder
+                                    sudo umount /mnt/frontend_deploy_folder
+                                    exit 1
+                                }
+
+                                # Cleanup temp directory
+                                rm -rf /tmp/extract_${app}
+
+                                # Verify deployment
+                                echo "Files in production deploy directory:"
+                                sudo ls -la /mnt/frontend_deploy_folder/
+                                
+                                # Cleanup
+                                sudo umount /mnt/frontend_backup_folder
+                                sudo umount /mnt/frontend_deploy_folder
+                            """
+                        }
+
+                        echo "Successfully deployed ${app} to PRODUCTION"
+                        
+                        // Delete the artifact from production storage after successful deployment
+                        sh "rm -f ${artifactPath}"
+                        echo "Deleted artifact from production storage after successful deployment: ${artifactPath}"
+                    }
+                    
+                    echo "All available apps have been deployed to PRODUCTION successfully"
+                    
+                    // Show remaining artifacts (if any)
+                    sh """
+                        remaining_artifacts=\$(find ${PROD_ARTIFACT_STORAGE_DIR} -name '*.tar.gz' | wc -l)
+                        if [ \$remaining_artifacts -gt 0 ]; then
+                            echo "\$remaining_artifacts artifacts remain in production storage for future deployments:"
+                            find ${PROD_ARTIFACT_STORAGE_DIR} -name '*.tar.gz' -exec ls -la {} \\;
+                        else
+                            echo "No artifacts remain in production storage."
+                        fi
+                    """
+                }
+            }
+        }
+    }
+    
+    post {
+        success {
+            echo "Production deployment completed successfully!"
+        }
+        failure {
+            echo "Production deployment failed. Please check the logs for more information."
+        }
+        always {
+            // Clean up any remaining mounts
+            sh '''
+                # Clean up any mount points that might still be mounted
+                mountpoint -q /mnt/backup_restore_folder && sudo umount -f /mnt/backup_restore_folder || true
+                mountpoint -q /mnt/frontend_deploy_folder && sudo umount -f /mnt/frontend_deploy_folder || true
+                mountpoint -q /mnt/frontend_backup_folder && sudo umount -f /mnt/frontend_backup_folder || true
+                mountpoint -q /mnt/frontend_parent && sudo umount -f /mnt/frontend_parent || true
+                
+                # Show any remaining mounts for debugging
+                echo "Remaining CIFS mounts:"
+                mount | grep cifs || echo "No CIFS mounts found"
+            '''
+            cleanWs()
+        }
+    }
+}

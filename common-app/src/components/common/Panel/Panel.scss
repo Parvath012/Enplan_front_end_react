@@ -1,0 +1,225 @@
+// Panel Styles - Reusable slide-in panel from right
+$primary-color: #006FE6;
+$text-secondary: #5F6368;
+$text-primary: #4A4E52;
+$border-color: #F2F2F0;
+$default-text-color: #B4B7BA;
+$error-color: #D32F2F;
+ 
+.panel {
+  width: 420px !important;
+  height: 100vh !important;
+  background-color: rgba(255, 255, 255, 1) !important;
+  border: 1px solid rgba(242, 242, 240, 1) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  position: fixed !important;
+  right: -420px !important; // Start off-screen
+  top: 0 !important;
+  z-index: 1300 !important; // Above backdrop (backdrop is 1299)
+  transition: right 0.3s ease-in-out !important; // Smooth slide-in animation
+ 
+  &--open {
+    right: 0 !important; // Slide into view when open
+    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.2) !important; // Shadow around panel when open
+  }
+ 
+  &__backdrop {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    background-color: rgba(0, 0, 0, 0.3) !important; // Dark blur matching dataManagement CustomSlider/ProcessGroup
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+    z-index: 1299 !important; // Above all headers and sidebars (headers are 1000-1001)
+    cursor: pointer !important;
+    animation: fadeIn 0.3s ease-in-out !important;
+    pointer-events: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+ 
+  &__header {
+    width: 420px !important;
+    height: 42px !important;
+    background: inherit !important;
+    background-color: rgba(255, 255, 255, 1) !important;
+    box-sizing: border-box !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: rgba(242, 242, 240, 1) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 0 16px !important;
+  }
+ 
+  &__title {
+    font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    font-weight: 650 !important;
+    font-style: normal !important;
+    font-size: 14px !important;
+    color: #4A4E52 !important;
+    text-align: left !important;
+    margin: 0 !important;
+  }
+ 
+  &__close-icon {
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 8px !important;
+    color: #6c757d !important;
+    background-color: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    cursor: pointer !important;
+ 
+    &:hover {
+      color: #495057 !important;
+      background-color: #f0f0f0 !important;
+    }
+ 
+    .MuiIconButton-root {
+      width: 30px !important;
+      height: 30px !important;
+      padding: 0 !important;
+    }
+  }
+ 
+  &__content {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+ 
+  &__actions {
+    width: 420px !important;
+    height: 46px !important;
+    background: inherit !important;
+    background-color: rgba(255, 255, 255, 1) !important;
+    box-sizing: border-box !important;
+    border-width: 1px !important;
+    border-style: solid !important;
+    border-color: rgba(242, 242, 240, 1) !important;
+    border-radius: 0px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    padding: 0 16px !important; // Match header padding to align with title
+  }
+ 
+  &__reset-btn {
+    width: auto !important;
+    height: 24px !important; // Match submit button height
+    font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    font-weight: 400 !important; // Normal weight, not bold
+    font-style: normal !important;
+    font-size: 14px !important;
+    color: #1976d2 !important;
+    text-align: center !important;
+    line-height: normal !important;
+    text-transform: none !important;
+    padding: 0 0px !important;
+    min-width: auto !important;
+    background-color: transparent !important;
+    border: none !important;
+    border-radius: 6px !important;
+    transition: background-color 0.2s, color 0.2s !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 0 0 8px !important; // Move a little to the right
+
+    &:hover {
+      background-color: transparent !important;
+      color: #1976d2 !important;
+    }
+
+    &:active {
+      background-color: transparent !important;
+      color: #1976d2 !important;
+      transition: none !important;
+    }
+  }
+ 
+  &__submit-btn {
+    width: 62px !important;
+    height: 30px !important;
+    background: inherit !important;
+    background-color: rgba(0, 111, 230, 1) !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    font-weight: 500 !important;
+    font-style: normal !important;
+    font-size: 14px !important;
+    color: white !important;
+    text-align: center !important;
+    text-transform: none !important;
+    min-width: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    line-height: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: none !important;
+    
+    // Ensure the button content (span) is also centered
+    & > span {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 100% !important;
+      height: 100% !important;
+      text-align: center !important;
+      line-height: 1 !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    &:hover:not(:disabled) {
+      background-color: #0056B3 !important;
+    }
+
+    &:disabled {
+      background-color: #E0E0E0 !important;
+      color: #9E9E9E !important;
+    }
+  }
+}
+ 
+// Animation keyframes
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+ 
+// Responsive adjustments
+@media (max-width: 768px) {
+  .panel {
+    width: 100vw !important;
+    right: -100vw !important;
+ 
+    &--open {
+      right: 0 !important;
+    }
+ 
+    &__header {
+      width: 100% !important;
+    }
+ 
+    &__actions {
+      width: 100% !important;
+    }
+  }
+}

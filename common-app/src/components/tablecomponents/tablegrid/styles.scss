@@ -1,0 +1,229 @@
+.reusable-excel-grid {
+    width: 100%;
+    height: 100%;
+
+    .MuiDataGrid-root {
+        border: none;
+    }
+
+    .MuiDataGrid-cell {
+        white-space: normal;
+        word-break: break-word;
+        padding: 0 !important;
+        margin: 0 !important;
+        border: none !important;
+        border-bottom: 1.5px solid #F7F7F6 !important;
+        background-color: #ffffff !important;
+
+        &--editing {
+
+            /* Style the actual input field inside */
+            input,
+            .MuiInputBase-input {
+                width: 100% !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                font-size: 10px !important;
+            }
+        }
+    }
+
+    .MuiDataGrid-cell.right-border {
+        border-right: 1.75px solid #F7F7F6 !important;
+    }
+
+    .selected-cell {
+        background-color: #f5f5f5 !important;
+    }
+    .cell-has-fillcolor.selected-cell {
+        background-color: var(--cell-fill-color) !important;
+    }
+
+    .MuiDataGrid-cell:focus,
+    .MuiDataGrid-cell:focus-within,
+    .MuiDataGrid-cell--withFocus,
+    .MuiDataGrid-cell.MuiDataGrid-cell--editing {
+        outline: none !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+
+    .MuiDataGrid-cell.MuiDataGrid-cell--editing {
+        box-shadow: none !important;
+        outline: none !important;
+    }
+
+
+
+    .MuiDataGrid-editInputCell input {
+        font-size: 10px !important;
+        color: #818586 !important;
+    }
+
+    .MuiDataGrid-columnHeaderTitleContainer {
+        justify-content: space-between;
+    }
+
+    .MuiDataGrid-columnHeaders,
+    .MuiDataGrid-columnHeader {
+        padding: 0 !important;
+        background-color: #f4f4f4 !important;
+        border-bottom: 1px solid #ccc !important;
+    }
+
+    .MuiDataGrid-columnHeader:focus,
+    .MuiDataGrid-columnHeader:focus-within {
+        outline: none !important;
+    }
+
+
+    .status-cell {
+        &--close {
+            background-color: #e6f0ff;
+        }
+
+        &--open {
+            background-color: #ffebee;
+        }
+    }
+
+    .MuiDataGrid-row {
+        border: 'none' !important;
+    }
+
+    .MuiDataGrid-columnHeader {
+
+        .MuiDataGrid-sortIcon,
+        .MuiDataGrid-menuIcon {
+            display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+            width: 0 !important;
+            max-width: 0 !important;
+        }
+
+        &:hover {
+
+            .MuiDataGrid-sortIcon,
+            .MuiDataGrid-menuIcon {
+                display: none !important;
+                opacity: 0 !important;
+                visibility: hidden !important;
+            }
+        }
+    }
+
+    .MuiDataGrid-iconButtonContainer {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        width: 0 !important;
+        max-width: 0 !important;
+    }
+
+    .MuiDataGrid-columnSeparator {
+        position: absolute !important;
+        right: 0 !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        width: 2px !important;
+        background-color: #F7F7F6 !important;
+        opacity: 1 !important;
+    }
+
+    .MuiDataGrid-columnSeparator::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 10px;
+        background-color: #F7F7F6;
+    }
+
+
+    @media (max-width: 768px) {
+        .MuiDataGrid-cell {
+            font-size: 0.8rem;
+            padding: 4px;
+        }
+    }
+
+
+    #resize-indicator {
+        position: absolute;
+        top: 52px;
+        height: calc(100% - 86px);
+        width: 2px;
+        border-left: 2px dashed gray;
+        z-index: 999;
+        display: none;
+        pointer-events: none;
+    }
+
+}
+
+/* CustomCheckbox.scss */
+.unchecked {
+    display: inline-block;
+    border: 1.5px solid #d0d5dd;
+    border-radius: 6px;
+    background-color: #ffffff;
+}
+
+.checked {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    background-color: #0052cc;
+}
+
+.checkedIcon {
+    color: #fff;
+    border-radius: 6px;
+}
+
+/* GridCellRenderer.scss */
+
+.cellWrapper {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    font-weight: 400;
+}
+
+.cellContent {
+    flex-grow: 0;
+    font-weight: 400;
+    font-size: 10px;
+    color: #818586;
+    text-align: left;
+    width: 100%;
+    padding-left: var(--cell-padding, 10px);
+}
+
+/* GridUtil.scss */
+
+.headerContainer {
+    display: flex;
+    width: 100%;
+    padding: 10px;
+}
+
+.headerText {
+    flex-grow: 0;
+    font-weight: 600;
+    font-size: 10px;
+    color: #818586;
+}
+
+.headerIcons {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    font-size: 16px;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}

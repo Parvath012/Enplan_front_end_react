@@ -1,0 +1,67 @@
+// Unified Panel Blur Styles for User Management
+// This file provides reusable backdrop blur and shadow styles for all panels
+// Reference: dataManagement CustomSlider implementation
+
+// Ensure backdrop has consistent dark blur color for all panels
+// This enforces the same blur color as dataManagement CustomSlider/ProcessGroup
+// Applied universally to all panel backdrops
+.panel__backdrop {
+  background-color: rgba(0, 0, 0, 0.3) !important;
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
+}
+
+// Shadow effect for panel when open
+.panel.shadow,
+.panel--open {
+  box-shadow: -5px 0 20px rgba(0, 0, 0, 0.2);
+}
+
+// Ensure panels themselves are never blurred
+.bulk-upload-panel,
+.transfer-panel,
+.duplicate-panel {
+  filter: none !important;
+  -webkit-filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+
+  // Ensure all children are not blurred
+  *,
+  *::before,
+  *::after {
+    filter: none !important;
+    -webkit-filter: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+}
+
+// Ensure panel sections are not blurred
+.bulk-upload-panel .panel__header,
+.bulk-upload-panel .panel__content,
+.bulk-upload-panel .panel__actions,
+.bulk-upload-panel .panel__title,
+.bulk-upload-panel .panel__close-icon,
+.bulk-upload-panel .panel__reset-btn,
+.bulk-upload-panel .panel__submit-btn,
+.transfer-panel .panel__header,
+.transfer-panel .panel__content,
+.transfer-panel .panel__actions,
+.transfer-panel .panel__title,
+.transfer-panel .panel__close-icon,
+.transfer-panel .panel__reset-btn,
+.transfer-panel .panel__submit-btn,
+.duplicate-panel .panel__header,
+.duplicate-panel .panel__content,
+.duplicate-panel .panel__actions,
+.duplicate-panel .panel__title,
+.duplicate-panel .panel__close-icon,
+.duplicate-panel .panel__reset-btn,
+.duplicate-panel .panel__submit-btn {
+  filter: none !important;
+  -webkit-filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+

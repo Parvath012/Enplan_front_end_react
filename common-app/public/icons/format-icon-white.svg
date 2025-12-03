@@ -1,0 +1,12 @@
+<!-- filepath: public/icons/format-icon.svg -->
+<svg id="icon" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 32 32" width="24px" height="24px">
+  <defs>
+    <style>
+      .st0 {
+        fill: none;
+      }
+    </style>
+  </defs>
+  <path fill="#CCFFFF" d="M28,2H10c-1.1,0-2,.9-2,2v3h-4c-1.1,0-2,.9-2,2v19c0,1.1.9,2,2,2h24c1.1,0,2-.9,2-2V4c0-1.1-.9-2-2-2ZM10,4h18v3H10v-3ZM28,14h-8v-5h8v5ZM18,23v5h-8v-5h8ZM8,21h-4v-5h4v5ZM20,16h8v5h-8v-5ZM8,9v5h-4v-5h4ZM4,23h4v5h-4v-5Z"/>
+  <rect id="_Transparent_Rectangle_" class="st0" width="32" height="32"/>
+</svg>

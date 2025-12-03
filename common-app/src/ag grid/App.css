@@ -1,0 +1,192 @@
+.reusable-excel-grid .ag-header {
+  background-color: #f4f4f4 !important;
+  border-bottom: 2px solid #ccc !important;
+}
+
+.reusable-excel-grid .ag-header-row {
+  height: 40px !important;
+}
+ .reusable-excel-grid .ag-header-cell {
+  padding-left: 15px !important;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  color: #818586 !important;
+  background-color: #f4f4f4 !important;
+  border-right: 1px solid #F7F7F6 !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.reusable-excel-grid .ag-header-cell:focus,
+.reusable-excel-grid .ag-header-cell:focus-within,
+.reusable-excel-grid .ag-header-cell.ag-focus-managed {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.reusable-excel-grid .ag-header-cell-label {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 100%;
+}
+
+.reusable-excel-grid .ag-root-wrapper {
+  border: none !important;
+}
+
+.reusable-excel-grid .ag-header-cell-resize {
+  position: absolute !important;
+  right: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  width: 4px !important;
+  min-width: 4px !important;
+  background-color: #F7F7F6 !important;
+  opacity: 0 !important;
+  z-index: 0;
+  pointer-events: auto !important;
+}
+
+.reusable-excel-grid .ag-cell-resize::after {
+  display: none !important;
+  width: 10px !important;
+}
+
+
+.ag-header-cell::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 2px;
+  background-color: #F7F7F6 !important;
+  pointer-events: none;
+}
+
+.reusable-excel-grid .editable-cell {
+  background-color: #e0f0ff !important;
+}
+
+.reusable-excel-grid .ag-row {
+  border-bottom: 1.5px solid #F7F7F6 !important;
+}
+
+.reusable-excel-grid .ag-cell {
+  border-right: none !important;
+  font-size: 10px !important;
+  white-space: normal;
+  word-break: break-word;
+
+  &:focus,
+  &:focus-within {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+}
+
+/* Immediate cell selection styling */
+.reusable-excel-grid .ag-cell-selected {
+  background-color: #e3f2fd !important;
+  border: 2px solid #2196f3 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  position: relative !important;
+}
+
+.reusable-excel-grid .ag-cell-selected::after {
+  content: '' !important;
+  position: absolute !important;
+  bottom: -3px !important;
+  right: -3px !important;
+  width: 6px !important;
+  height: 6px !important;
+  background-color: #2196f3 !important;
+  z-index: 10 !important;
+}
+
+.reusable-excel-grid .ag-cell.ag-cell-focus {
+  background-color: #e3f2fd !important;
+  border: 2px solid #2196f3 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  position: relative !important;
+}
+
+.reusable-excel-grid .ag-cell.ag-cell-focus::after {
+  content: '' !important;
+  position: absolute !important;
+  bottom: -3px !important;
+  right: -3px !important;
+  width: 6px !important;
+  height: 6px !important;
+  background-color: #2196f3 !important;
+  z-index: 10 !important;
+}
+
+.reusable-excel-grid .ag-row.ag-row-group.ag-row-group-expanded {
+  border-bottom: 2px solid gray !important;
+}
+
+.reusable-excel-grid .ag-cell.ag-cell-inline-editing {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  background-color: #ffffff !important;
+}
+
+.reusable-excel-grid .ag-cell.ag-cell-inline-editing::after {
+  display: none !important;
+}
+
+.reusable-excel-grid .ag-input-field-input,
+.reusable-excel-grid input.ag-input,
+.reusable-excel-grid .ag-text-field-input {
+  border: none !important;
+  outline: none !important;
+  background-color: #ffffff !important;
+  font-size: 10px !important;
+  width: 100% !important;
+  height: 100% !important;
+  padding: 2px 4px !important;
+}
+
+.reusable-excel-grid .ag-header-cell.second-header-border {
+  border-right: 2px solid blue !important;
+}
+
+/* Row number column styling */
+.reusable-excel-grid .row-number-header {
+  background-color: #1a1a1a !important;
+  border-right: 1px solid #F7F7F6 !important;
+  width: 20px !important;
+  min-width: 20px !important;
+  max-width: 20px !important;
+  flex: 0 0 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.reusable-excel-grid .row-number-cell {
+  background-color: #2c2c2c !important;
+  border-right: 1px solid #F7F7F6 !important;
+  text-align: left !important;
+  padding-left: 8px !important;
+  color: #ffffff !important;
+  font-size: 10px !important;
+  width: 20px !important;
+  min-width: 20px !important;
+  max-width: 20px !important;
+  flex: 0 0 20px !important;
+}
+
+.reusable-excel-grid .row-number-cell:focus,
+.reusable-excel-grid .row-number-cell:focus-within {
+  background-color: #2c2c2c !important;
+  outline: none !important;
+  box-shadow: none !important;
+}

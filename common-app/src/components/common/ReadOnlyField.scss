@@ -1,0 +1,27 @@
+.read-only-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  &__label {
+    font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    font-weight: 500 !important;
+    font-style: normal !important;
+    font-size: 12px !important;
+    color: #4A4E52 !important;
+    text-align: left !important;
+    line-height: 18px !important;
+    margin: 0 !important;
+  }
+
+  &__value {
+    font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+    font-weight: 400 !important;
+    font-style: normal !important;
+    font-size: 12px !important;
+    color: #5F6368 !important;
+    text-align: left !important;
+    line-height: 18px !important;
+    margin: 0 !important;
+  }
+}

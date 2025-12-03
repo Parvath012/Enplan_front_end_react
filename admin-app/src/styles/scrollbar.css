@@ -1,0 +1,59 @@
+/* Admin app styles to hide default scrollbars while maintaining scrolling functionality */
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.admin-content::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.admin-content {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Hide scrollbars in microfrontend content areas */
+.base-content::-webkit-scrollbar {
+  display: none;
+}
+
+.base-content {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Apply to any other scrollable elements in admin app */
+.admin-scrollable::-webkit-scrollbar {
+  display: none;
+}
+
+.admin-scrollable {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+p-scrollable::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* EntitySetupForm scrollbar styles when embedded in admin app */
+.entity-setup-scrollable::-webkit-scrollbar {
+  width: 8px;
+}
+
+.entity-setup-scrollable::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.entity-setup-scrollable::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.entity-setup-scrollable::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+.entity-setup-scrollable {
+  -ms-overflow-style: auto;  /* Show scrollbar in IE and Edge */
+  scrollbar-width: thin;  /* Show scrollbar in Firefox */
+}

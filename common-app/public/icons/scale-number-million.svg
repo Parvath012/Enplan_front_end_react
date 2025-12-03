@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="icon" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 32 32" width="24px" height="24px">
+  <defs>
+    <style>
+      .st0 {
+        fill: none;
+      }
+    </style>
+  </defs>
+  <polygon fill="#5B6061" points="19 5.5 16.72 13 16 15.97 15.31 13 13 5.5 10 5.5 10 26.5 13 26.5 13 14.5 12.76 11.5 13.63 14.5 16 21.44 18.37 14.5 19.24 11.5 19 14.5 19 26.5 22 26.5 22 5.5 19 5.5"/>
+  <rect id="_Transparent_Rectangle_" class="st0" width="32" height="32"/>
+</svg>

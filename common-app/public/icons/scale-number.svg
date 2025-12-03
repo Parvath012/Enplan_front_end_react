@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="icon" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 32 32">
+  <defs>
+    <style>
+      .st0 {
+        fill: none;
+      }
+      .filled {
+        fill: #5B6061;
+      }
+    </style>
+  </defs>
+  <rect id="_Transparent_Rectangle_" class="st0" width="32" height="32"/>
+  <g>
+    <polygon class="filled" points="12.19 9 7.19 9 7.19 11 10.19 11 10.19 21 7.19 21 7.19 23 15.19 23 15.19 21 12.19 21 12.19 9"/>
+    <polygon class="filled" points="24.81 13 22.57 13 18.81 17.17 18.81 9 16.81 9 16.81 23 18.81 23 18.81 19.25 19.77 18.21 22.59 23 24.81 23 21.03 17 24.81 13"/>
+  </g>
+</svg>

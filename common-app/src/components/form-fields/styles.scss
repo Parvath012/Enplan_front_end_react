@@ -1,0 +1,737 @@
+// FormField Component Styles
+$primary-focus-color: #1976d2;
+$error-color: #FF4D4F;
+$border-default: #E0E0E0;
+$border-hover: #BDBDBD;
+$text-secondary: #5F6368;
+$placeholder-color: #5F6368;
+$disabled-bg: #F5F5F5;
+ 
+.form-field {
+  &__label {
+    color: $text-secondary;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    display: block;
+    font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+ 
+  &__input {
+    .MuiOutlinedInput-root {
+      width: 100%;
+      height: 30px;
+      border-radius: 8px;
+      background-color: white;
+      font-weight: 500;
+      font-size: 12px;
+      font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+      .MuiOutlinedInput-notchedOutline {
+        border-color: $border-default;
+        border-left-color: $border-default;
+        border-left-width: 1px;
+      }
+ 
+      &:hover .MuiOutlinedInput-notchedOutline {
+        border-color: $border-default;
+        border-left-color: $border-default;
+      }
+ 
+      &.Mui-focused .MuiOutlinedInput-notchedOutline {
+        border-color: $primary-focus-color;
+        border-width: 1px;
+        border-left-color: $primary-focus-color;
+      }
+ 
+      &.Mui-disabled .MuiOutlinedInput-notchedOutline {
+        border-color: $border-default;
+        border-left-color: $border-default;
+        border-left-width: 1px;
+        background-color: $disabled-bg;
+      }
+ 
+ 
+      &.Mui-error.Mui-focused .MuiOutlinedInput-notchedOutline {
+        border-color: $error-color;
+        border-width: 1px;
+      }
+    }
+
+    // Add border-radius for error state of text fields
+    .MuiOutlinedInput-root.Mui-error {
+      border-radius: 8px !important;
+      
+      .MuiOutlinedInput-notchedOutline {
+        border-top-left-radius: 8px !important;
+        border-bottom-left-radius: 8px !important;
+        border-top-right-radius: 8px !important;
+        border-bottom-right-radius: 8px !important;
+      }
+      
+      // Target the fieldset element specifically
+      fieldset {
+        border-radius: 8px !important;
+      }
+    }
+
+    .MuiInputBase-input {
+      padding: 8px 12px;
+    }
+ 
+    .MuiFormHelperText-root {
+      color: $text-secondary;
+      font-size: 12px;
+      margin: 4px 0 0 0;
+      font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      padding: 0;
+      line-height: 1.2;
+    }
+ 
+    input::placeholder {
+      color: $placeholder-color;
+      opacity: 1;
+    }
+ 
+    // Ensure placeholder is visible even when disabled
+    .Mui-disabled input::placeholder {
+      color: $placeholder-color;
+      opacity: 1;
+      -webkit-text-fill-color: $placeholder-color;
+    }
+ 
+    // Force placeholder visibility for disabled fields
+    .Mui-disabled .MuiInputBase-input {
+      color: $placeholder-color !important;
+      -webkit-text-fill-color: $placeholder-color !important;
+    }
+ 
+    // Force text visibility for disabled fields with actual values
+    .Mui-disabled .MuiInputBase-input:not([value=""]) {
+      color: $placeholder-color !important;
+      -webkit-text-fill-color: $placeholder-color !important;
+      opacity: 1 !important;
+    }
+ 
+    // Custom disabled state styling
+    &--disabled {
+      .MuiOutlinedInput-root {
+        background-color: $disabled-bg !important;
+        border-left: 2px solid $error-color !important;
+        border-top-left-radius: 8px !important;
+        border-bottom-left-radius: 8px !important;
+       
+        .MuiOutlinedInput-notchedOutline {
+          border-left: none !important;
+          border-top: 1px solid $border-default !important;
+          border-right: 1px solid $border-default !important;
+          border-bottom: 1px solid $border-default !important;
+        }
+
+        &:hover {
+          border-left: 2px solid $error-color !important;
+         
+          .MuiOutlinedInput-notchedOutline {
+            border-left: none !important;
+            border-top: 1px solid $border-default !important;
+            border-right: 1px solid $border-default !important;
+            border-bottom: 1px solid $border-default !important;
+          }
+        }
+      }
+
+      .MuiInputBase-input {
+        color: $placeholder-color !important;
+      }
+    }
+
+    // Custom readonly state styling (no red border)
+    &--readonly {
+      .MuiOutlinedInput-root {
+        background-color: $disabled-bg !important;
+        border: 1px solid $border-default !important;
+        border-radius: 8px !important;
+       
+        .MuiOutlinedInput-notchedOutline {
+          border: none !important;
+        }
+
+        &:hover {
+          border: 1px solid $border-default !important;
+        }
+      }
+
+      .MuiInputBase-input {
+        color: $text-secondary !important;
+        -webkit-text-fill-color: $placeholder-color !important;
+        opacity: 1 !important;
+        cursor: default !important;
+        background-color: transparent !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+      }
+    }
+    
+    // Fix for mandatory readonly text fields - ensure red border follows rounded corners
+    &--readonly.form-field--required {
+      .MuiOutlinedInput-root {
+        background-color: $disabled-bg !important;
+        border: 1px solid $border-default !important;
+        border-radius: 8px !important;
+        position: relative;
+        
+        // Use pseudo-element to create red border that follows rounded corners
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          width: 2px;
+          background-color: $error-color;
+          border-radius: 8px 0 0 8px;
+          z-index: 1;
+        }
+       
+        .MuiOutlinedInput-notchedOutline {
+          border: none !important;
+        }
+
+        &:hover {
+          border: 1px solid $border-default !important;
+        }
+      }
+    }
+  }
+ 
+  &__select {
+    width: 100%;
+    height: 30px;
+    border-radius: 8px !important;
+    background-color: white;
+    font-weight: 500;
+    font-size: 12px;
+    font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+ 
+    .MuiOutlinedInput-notchedOutline {
+      border-color: $border-default;
+      border-left-color: $border-default;
+      border-left-width: 1px;
+      border-radius: 8px !important;
+    }
+ 
+    &:hover .MuiOutlinedInput-notchedOutline {
+      border-color: $border-default !important;
+      border-left-color: $border-default !important;
+      border-left-width: 1px !important;
+    }
+ 
+    // Override hover when focused to maintain focus styling
+    &.Mui-focused:hover .MuiOutlinedInput-notchedOutline {
+      border-color: $primary-focus-color !important;
+      border-width: 1px !important;
+      border-left-color: $primary-focus-color !important;
+    }
+ 
+    &.Mui-focused .MuiOutlinedInput-notchedOutline {
+      border-color: $primary-focus-color !important;
+      border-width: 1px !important;
+      border-left-color: $primary-focus-color !important;
+    }
+ 
+    // Additional selector for higher specificity
+    &.Mui-focused .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+      border-color: $primary-focus-color !important;
+      border-width: 1px !important;
+      border-left-color: $primary-focus-color !important;
+    }
+ 
+    &.Mui-disabled .MuiOutlinedInput-notchedOutline {
+      border-color: $border-default;
+      border-left-color: $border-default;
+      border-left-width: 1px;
+    }
+ 
+    &.Mui-error .MuiOutlinedInput-notchedOutline {
+      border-color: $error-color;
+      border-left-color: $error-color;
+    }
+ 
+    &.Mui-error.Mui-focused .MuiOutlinedInput-notchedOutline {
+      border-color: $error-color;
+      border-width: 1px;
+    }
+ 
+    .MuiSelect-select {
+      padding: 4px 12px;
+      line-height: 22px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      cursor: text;
+      text-align: left !important;
+
+      &.Mui-disabled {
+        color: $placeholder-color;
+        background-color: $disabled-bg;
+      }
+    }
+    
+    .MuiOutlinedInput-root {
+      border-radius: 8px !important;
+      
+      .MuiOutlinedInput-notchedOutline {
+        border-radius: 8px !important;
+      }
+    }
+  }
+ 
+ 
+  &__menu-item {
+    font-size: 12px;
+    font-weight: 500;
+    min-height: 42px;
+    height: 42px;
+    padding-top: 0;
+    padding-bottom: 0;
+ 
+    .MuiListItemText-primary {
+      font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-weight: 400;
+      font-style: normal;
+      font-size: 12px;
+    }
+ 
+    &.Mui-selected {
+      background-color: transparent !important;
+      border-left: 3px solid $primary-focus-color;
+    }
+ 
+    &.Mui-selected:hover {
+      background-color: transparent !important;
+    }
+ 
+    &.Mui-focusVisible {
+      background-color: transparent !important;
+    }
+ 
+    &:not(.Mui-selected):hover {
+      background-color: #f5f5f5;
+      border-left: 3px solid transparent;
+    }
+ 
+    &:not(.Mui-selected) {
+      border-left: 3px solid transparent;
+    }
+  }
+ 
+  &__multiselect-menu-item {
+    font-size: 12px;
+    font-weight: 500;
+    min-height: 42px;
+    height: 42px;
+    padding-top: 0;
+    padding-bottom: 0;
+ 
+    .MuiListItemText-primary {
+      font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-weight: 400;
+      font-style: normal;
+      font-size: 12px;
+    }
+ 
+    &.Mui-focusVisible {
+      background-color: transparent !important;
+    }
+ 
+    &.Mui-selected {
+      background-color: transparent !important;
+    }
+ 
+    &.Mui-selected:hover {
+      background-color: #f5f5f5 !important;
+    }
+ 
+    &:hover {
+      background-color: #f5f5f5;
+    }
+ 
+    &:active {
+      background-color: #f5f5f5 !important;
+    }
+ 
+    &.Mui-selected:active {
+      background-color: #f5f5f5 !important;
+    }
+ 
+    &.Mui-focusVisible:hover {
+      background-color: #f5f5f5 !important;
+    }
+ 
+    &.Mui-selected.Mui-focusVisible {
+      background-color: #f5f5f5 !important;
+    }
+ 
+    .MuiTouchRipple-root {
+      display: none;
+    }
+  }
+ 
+  &__select-all-item {
+    height: 40px;
+    min-height: 40px;
+    padding-top: 0;
+    padding-bottom: 0;
+    font-size: 12px;
+    font-weight: 500;
+    background-color: transparent;
+ 
+    .MuiListItemText-primary {
+      font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-weight: 400;
+      font-style: normal;
+      font-size: 12px;
+    }
+ 
+    &:hover {
+      background-color: #f5f5f5;
+    }
+ 
+    &:active {
+      background-color: #f5f5f5 !important;
+    }
+ 
+    &.Mui-selected:active {
+      background-color: #f5f5f5 !important;
+    }
+ 
+    &.Mui-focusVisible:hover {
+      background-color: #f5f5f5 !important;
+    }
+ 
+    &.Mui-selected.Mui-focusVisible {
+      background-color: #f5f5f5 !important;
+    }
+ 
+    .MuiTouchRipple-root {
+      display: none;
+    }
+  }
+ 
+  &__close-icon {
+    margin-left: auto;
+    color: #5B6061;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+    line-height: 1;
+    border-radius: 4px;
+    transition: background-color 0.15s ease-in-out;
+ 
+    &:hover {
+      background-color: rgba(242, 242, 240, 1);
+    }
+  }
+ 
+  &__chip {
+    position: relative;
+    background-color: #FFFFFF;
+    border: 1px dashed #E0E0E0;
+    border-radius: 6px;
+    color: #333;
+    height: 18px;
+    padding: 0 4px;
+    cursor: text;
+ 
+    .MuiChip-label {
+      box-sizing: border-box;
+      width: 100%;
+      font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-weight: 400;
+      font-style: normal;
+      font-size: 10px;
+      color: #5F6368;
+      text-align: left;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      min-height: 5px;
+      display: inline-block;
+    }
+  }
+ 
+  &__chip-delete-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    color: #5B6061;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background-color 0.15s ease-in-out;
+ 
+    &:hover {
+      background-color: rgba(242, 242, 240, 1);
+    }
+  }
+ 
+  &__chips-container {
+    margin-top: 8px;
+    width: 100%;
+    height: 52px;
+    overflow-y: scroll;
+    background-color: #FFFFFF;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 4px;
+  }
+ 
+  &__error-message {
+    color: $error-color;
+    font-size: 12px;
+    margin-top: 4px;
+    font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+ 
+  &__placeholder {
+    color: $placeholder-color;
+    font-size: 12px;
+  }
+ 
+  &__divider {
+    height: 1px;
+    background-color: #EDEDED;
+    margin: 0 8px;
+  }
+}
+ 
+// Required field styles
+.form-field--required {
+  .form-field__input .MuiOutlinedInput-root,
+  .form-field__select,
+  .form-field__multiselect {
+    border-top-left-radius: 8px !important;
+    border-bottom-left-radius: 8px !important;
+   
+    .MuiOutlinedInput-notchedOutline {
+      border-left: none !important;
+      border-radius: 8px !important;
+      // Apply the red border using box-shadow on the notched outline
+      box-shadow: inset 2px 0 0 $error-color !important;
+    }
+  }
+ 
+  // Override for disabled required fields - maintain red border for consistent appearance
+  .form-field__select.Mui-disabled,
+  .form-field__multiselect.Mui-disabled {
+    .MuiOutlinedInput-notchedOutline {
+      border-left: none !important;
+      border-top: 1px solid $border-default !important;
+      border-right: 1px solid $border-default !important;
+      border-bottom: 1px solid $border-default !important;
+      // Maintain red border using box-shadow for disabled required fields
+      box-shadow: inset 2px 0 0 $error-color !important;
+    }
+  }
+
+  // Override for disabled text fields - use box-shadow like select fields for consistent appearance
+  .form-field__input--disabled .MuiOutlinedInput-root {
+    border-left: none !important;
+    
+    .MuiOutlinedInput-notchedOutline {
+      border-left: none !important;
+      border-radius: 8px !important;
+      // Apply the red border using box-shadow to match select fields
+      box-shadow: inset 2px 0 0 $error-color !important;
+    }
+
+    &:hover .MuiOutlinedInput-notchedOutline {
+      box-shadow: inset 2px 0 0 $error-color !important;
+    }
+  }
+
+  // Override hover for disabled fields - maintain gray borders and red border
+  .form-field--required .form-field__select.Mui-disabled:hover,
+  .form-field--required .form-field__multiselect.Mui-disabled:hover {
+    .MuiOutlinedInput-notchedOutline {
+      border-left: none !important;
+      border-top: 1px solid $border-default !important;
+      border-right: 1px solid $border-default !important;
+      border-bottom: 1px solid $border-default !important;
+      // Maintain red border on hover for disabled required fields
+      box-shadow: inset 2px 0 0 $error-color !important;
+    }
+  }
+ 
+  // Remove red border on focused state
+  .form-field__input .MuiOutlinedInput-root.Mui-focused,
+  .form-field__select.Mui-focused,
+  .form-field__multiselect.Mui-focused {
+    .MuiOutlinedInput-notchedOutline {
+      box-shadow: none !important;
+      border-left: 1px solid $primary-focus-color !important;
+    }
+  }
+  // Ensure notchedOutline respects parent's rounded left corners for TextField
+  .form-field__input .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    border-top-left-radius: 8px !important;
+    border-bottom-left-radius: 8px !important;
+  }
+  
+  // Ensure error state also has proper border-radius for TextField
+  /* Consolidated duplicate: first seen L52, merged here; last occurrence retained to preserve cascade */
+  .form-field__input .MuiOutlinedInput-root.Mui-error {
+    border-radius: 8px !important;
+    
+    .MuiOutlinedInput-notchedOutline {
+      /* merged from L52 */
+      border-color: $error-color;
+      border-left-color: $error-color;
+      /* end merged from L52 */
+      border-top-left-radius: 8px !important;
+      border-bottom-left-radius: 8px !important;
+      border-top-right-radius: 8px !important;
+      border-bottom-right-radius: 8px !important;
+    }
+    
+    // Target the fieldset element specifically
+    fieldset {
+      border-radius: 8px !important;
+    }
+  }
+}
+ 
+// Menu props styles
+.form-field__menu-paper {
+  margin-top: 4px;
+  border-radius: 8px !important;
+  box-shadow: 0px 2px 6px rgba(0,0,0,0.15);
+  
+  // Ensure all dropdown menus have consistent border-radius
+  &, & .MuiPaper-root {
+    border-radius: 8px !important;
+  }
+ 
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+ 
+  &::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+    border-radius: 10px;
+  }
+ 
+  &::-webkit-scrollbar-thumb {
+    background-color: #bdbdbd;
+    border-radius: 10px;
+  }
+ 
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: #9e9e9e;
+  }
+}
+
+// Global rule to ensure all Material-UI dropdown menus have consistent border-radius
+.MuiMenu-paper,
+.MuiPopover-paper,
+.MuiSelect-menu,
+.MuiAutocomplete-paper {
+  border-radius: 8px !important;
+}
+
+// Specific rules for MultiSelectField dropdown
+/* Consolidated duplicate: first seen L276, merged here; last occurrence retained to preserve cascade */
+.form-field__multiselect {
+  /* merged from L276 */
+  width: 100%;
+  height: 30px;
+  border-radius: 8px;
+  background-color: white;
+  font-size: 12px;
+  cursor: text;
+  /* end merged from L276 */
+
+  .MuiSelect-select {
+    /* merged from L325 */
+    cursor: text;
+    /* end merged from L325 */
+    border-radius: 8px !important;
+  }
+  
+  .MuiOutlinedInput-notchedOutline {
+    /* merged from L284 */
+    border-color: $border-default;
+    border-left-color: $border-default;
+    border-left-width: 1px;
+    /* end merged from L284 */
+    border-radius: 8px !important;
+  }
+
+  /* merged from L290 */
+  &:hover .MuiOutlinedInput-notchedOutline {
+    border-color: $border-default !important;
+  }
+  /* end merged from L290 */
+
+  /* merged from L295 */
+  // Override hover when focused to maintain focus styling
+  &.Mui-focused:hover .MuiOutlinedInput-notchedOutline {
+    border-color: $primary-focus-color !important;
+    border-width: 1px !important;
+    border-left-color: $primary-focus-color !important;
+  }
+  /* end merged from L295 */
+
+  /* merged from L301 */
+  &.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: $primary-focus-color !important;
+    border-width: 1px !important;
+    border-left-color: $primary-focus-color !important;
+  }
+  /* end merged from L301 */
+
+  /* merged from L308 */
+  // Additional selector for higher specificity
+  &.Mui-focused .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    border-color: $primary-focus-color !important;
+    border-width: 1px !important;
+    border-left-color: $primary-focus-color !important;
+  }
+  /* end merged from L308 */
+
+  /* merged from L314 */
+  &.Mui-disabled {
+    color: $placeholder-color;
+    background-color: $disabled-bg;
+  }
+  /* end merged from L314 */
+
+  /* merged from L319 */
+  &.Mui-disabled .MuiOutlinedInput-notchedOutline {
+    border-color: #E0E0E0 !important;
+    border-left-color: $border-default;
+    border-left-width: 1px;
+  }
+  /* end merged from L319 */
+
+  /* merged from L330 */
+  // Override hover for disabled multiselect to maintain consistent appearance
+  &.Mui-disabled:hover .MuiOutlinedInput-notchedOutline {
+    border-color: #E0E0E0 !important;
+    border-left-color: $border-default;
+    border-left-width: 1px;
+  }
+  /* end merged from L330 */
+}
+
+// Ensure MultiSelectField dropdown menu has proper border-radius
+.MuiMenu-root .MuiPaper-root,
+.MuiPopover-root .MuiPaper-root {
+  border-radius: 8px !important;
+}

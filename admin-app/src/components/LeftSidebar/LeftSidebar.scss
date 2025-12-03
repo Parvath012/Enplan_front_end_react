@@ -1,0 +1,124 @@
+/* LeftSidebar.scss */
+.left-sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 48px;
+  height: 100vh;
+  background-color: rgba(251, 251, 251, 1);
+  border-right: 1px solid rgba(242, 242, 240, 1);
+  z-index: 1100; /* Ensure it's above other content including header */
+  display: flex;
+  flex-direction: column;
+  
+  &__container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 0;
+  }
+  
+  &__logo {
+    width: 48px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+  }
+  
+  &__divider {
+    width: 49px;
+    height: 2px;
+    background-color: rgba(242, 242, 240, 1);
+    margin: -1px 0 -4px 0;
+    padding: 0;
+  }
+  
+  &__top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px; /* Space between icons */
+    margin-top: 0;
+    padding-top: 10px;
+  }
+  
+  &__bottom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: auto;
+    margin-bottom: 10px;
+  }
+  
+  &__nav-item {
+    display: flex;
+    align-items: center;
+    position: relative;
+    
+    svg {
+      color: rgba(0, 0, 0, 0.54);
+      transition: color 0.2s ease;
+    }
+    
+    &--active {
+      svg {
+        color: rgba(0, 111, 230, 1);
+      }
+    }
+  }
+  
+  &__icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+    
+    &:hover {
+      background-color: rgba(232, 241, 254, 1);
+    }
+  }
+
+// Make notification icon hover background a circle
+.left-sidebar__notification-container .left-sidebar__icon-container:hover {
+  border-radius: 50%;
+}
+  
+  &__tooltip {
+    position: absolute;
+    left: 35px;
+    top: 30px;
+    padding: 5px 10px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 1001;
+  }
+  
+  &__notification-container {
+    position: relative;
+  }
+  
+  &__notification-indicator {
+  position: absolute;
+  top: 8px; // Move indicator lower
+  right: 9px; // Move indicator left
+  width: 5px;
+  height: 5px;
+  background-color: red;
+  border-radius: 50%;
+  }
+}
+
+.left-sidebar__nav-item--active .left-sidebar__admin-icon {
+  filter: invert(34%) sepia(99%) saturate(747%) hue-rotate(187deg) brightness(97%) contrast(101%);
+  color: rgb(0, 111, 230);
+}
